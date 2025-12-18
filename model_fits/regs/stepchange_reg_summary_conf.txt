@@ -1,0 +1,32 @@
+                                    Mixed Linear Model Regression Results
+=============================================================================================================
+Model:                              MixedLM                 Dependent Variable:                 player_change
+No. Observations:                   27924                   Method:                             REML         
+No. Groups:                         514                     Scale:                              1.7471       
+Min. group size:                    15                      Log-Likelihood:                     -49757.1164  
+Max. group size:                    56                      Converged:                          No           
+Mean group size:                    54.3                                                                     
+-------------------------------------------------------------------------------------------------------------
+                                                                  Coef.  Std.Err.    z    P>|z| [0.025 0.975]
+-------------------------------------------------------------------------------------------------------------
+Intercept                                                          0.162    0.012  13.224 0.000  0.138  0.187
+outcome[T.captured]                                               -0.348    0.022 -15.541 0.000 -0.392 -0.304
+player_partner_diff                                               -0.357    0.026 -13.519 0.000 -0.408 -0.305
+player_partner_diff:outcome[T.captured]                           -0.028    0.026  -1.060 0.289 -0.078  0.023
+partner_changed                                                   -0.137    0.027  -5.055 0.000 -0.190 -0.084
+Group Var                                                          0.012    0.002                            
+Group x outcome[T.captured] Cov                                    0.018    0.002                            
+outcome[T.captured] Var                                            0.048    0.006                            
+Group x player_partner_diff Cov                                    0.003    0.004                            
+outcome[T.captured] x player_partner_diff Cov                      0.001    0.007                            
+player_partner_diff Var                                            0.327                                     
+Group x player_partner_diff:outcome[T.captured] Cov               -0.002    0.003                            
+outcome[T.captured] x player_partner_diff:outcome[T.captured] Cov -0.003    0.007                            
+player_partner_diff x player_partner_diff:outcome[T.captured] Cov  0.037                                     
+player_partner_diff:outcome[T.captured] Var                        0.274                                     
+Group x partner_changed Cov                                        0.006    0.004                            
+outcome[T.captured] x partner_changed Cov                          0.006    0.008                            
+player_partner_diff x partner_changed Cov                         -0.028                                     
+player_partner_diff:outcome[T.captured] x partner_changed Cov     -0.001                                     
+partner_changed Var                                                0.332                                     
+=============================================================================================================
