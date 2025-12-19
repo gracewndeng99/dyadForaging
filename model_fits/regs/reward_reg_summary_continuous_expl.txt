@@ -4,7 +4,7 @@ Dep. Variable:             reward_inc   R-squared:                       0.134
 Model:                            OLS   Adj. R-squared:                  0.129
 Method:                 Least Squares   F-statistic:                     26.05
 Date:                Thu, 18 Dec 2025   Prob (F-statistic):           1.10e-15
-Time:                        16:12:42   Log-Likelihood:                -1656.8
+Time:                        17:02:51   Log-Likelihood:                -1656.8
 No. Observations:                 510   AIC:                             3322.
 Df Residuals:                     506   BIC:                             3338.
 Df Model:                           3                                         

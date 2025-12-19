@@ -95,7 +95,7 @@ def get_sig(p):
         sig = "n.s."
     return sig
 
-def add_sigstars(p, cut=(0.05, 0.01, 0.001), marks=('*', '**', '***', '†')):
+def add_sigstars(p, cut=(0.05, 0.01, 0.001)):
     # † for p<0.001 (you can swap if you prefer)
     # if p < cut[3]: return '†'
     if p < cut[2]: return '***'
