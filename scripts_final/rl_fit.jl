@@ -14,10 +14,14 @@ STEPS = 9 #9 steps to chose from between safety and danger
 #opts = np.array([0, 0.25, 0.5, 0.75, 1]) #split options (keep 0 to keep 1)
 NT =30 #num trials per predator ==30
 REWARDS = (1:STEPS) .^2 #rewards of each location
-beta = 6
+beta = 5
+
 # Define MYMODEL
 GENRULE = "peppgFull"
 CHOICERULE = "econ"
+ALPHARULE = "lrdecay2"
+PREDICTIONTYPE = "rollingAverage"#"realPrediction"#"rollingAverage"
+SCOREFUNC = "_llh" #"mse" or _llh
 
 # Print the results
 println([GENRULE, CHOICERULE])
@@ -52,10 +56,28 @@ function read_data(folder)
     # df_idv = leftjoin(df_idv, mean_df, on = [:subID, :predatorType])
     # df_idv.outlier = abs.(df_idv.choice .- df_idv.mean) .>= 5
 
+    # filter out weird choices
+    df_idv = filter(row -> row[:choice] > 0, df_idv)
+    df_group = filter(row -> row[:playerStep] > 0, df_group)
+
     return df_idv, df_group
 end
 
-
+function get_curr_learning_rate(alpha, curr_trial; alpharule=ALPHARULE)
+    if occursin("lrhist", alpharule)
+        alpha_t = alpha * (1 - curr_trial/90) #encounter each predator 90 trials
+    elseif occursin("lrdecay", alpharule)
+        # lrdecay: 
+        # alpha_t =  alpha / curr_trial
+        # lrdecay2: 
+        alpha_t =  alpha / sqrt(curr_trial) #decay with number of encounter
+        # lrdecay3: 
+        # alpha_t =  alpha / (1 + 0.1 * curr_trial)
+    else
+        alpha_t = alpha
+    end
+    return alpha_t
+end
 
 function update_V_safety(self_params, history, V_safety;
     gen=GENRULE, phase=1, steps=STEPS)
@@ -82,9 +104,9 @@ function update_V_safety(self_params, history, V_safety;
     end
 
     if phase==1
-        num_trials = length(history)
+        curr_trial = length(history)
     else
-        num_trials =  60 + length(history)
+        curr_trial =  60 + length(history)
     end
 
 
@@ -94,9 +116,10 @@ function update_V_safety(self_params, history, V_safety;
         # if split(mymodel, "_")[1] == "lrpe"
         #     alpha_lt = alpha_l * (1 / (1 + abs(pe)))
         # elseif split(mymodel, "_")[1] == "lrhist" #changed here for _new
-        #     alpha_lt = alpha_l * (1 - num_trials/90)
+        #     alpha_lt = alpha_l * (1 - curr_trial/90)
         # end
-        alpha_lt = alpha_l * (1 - num_trials/90)
+        # alpha_lt = alpha_l * (1 - curr_trial/90)
+        alpha_lt = get_curr_learning_rate(alpha_l, curr_trial)
 
         V_safety[curr_loc] += alpha_lt * pe # Update on that square
 
@@ -142,10 +165,10 @@ function update_V_safety(self_params, history, V_safety;
         # if split(mymodel, "_")[1] == "lrpe"
         #     alpha_wt = alpha_w * (1 / (1 + abs(pe)))
         # elseif split(mymodel, "_")[1] == "lrhist"
-        #     alpha_wt = alpha_w * (1 - num_trials/90)
+        #     alpha_wt = alpha_w * (1 - curr_trial/90)
         # end
-        alpha_wt = alpha_w * (1 - num_trials/90)
-
+        # alpha_wt = alpha_w * (1 - curr_trial/90)
+        alpha_wt = get_curr_learning_rate(alpha_w, curr_trial)  
         
         V_safety[curr_loc] += alpha_wt * pe # Update on that square
         if curr_loc != 1 # Update all state values before that square
@@ -176,7 +199,7 @@ function update_V_safety(self_params, history, V_safety;
             elseif gen == "indlrnFull"
                 gammas = gamma_b .* reverse(collect(1 : max_s))
                 V_safety[1:max_s] += alpha_wt .* gammas .* (1 .- V_safety[1:max_s])
-                gammas = gamma_w .* collect(1:steps-curr_loc)
+                gammas = gamma_f .* collect(1:steps-curr_loc)
                 V_safety[curr_loc+1:steps] += alpha_wt .* gammas .* (1 .- V_safety[curr_loc+1:steps])
             elseif gen=="noGen"
                 V_safety = V_safety
@@ -191,84 +214,58 @@ function update_V_safety(self_params, history, V_safety;
     return V_safety
 end
 
-function player_choice_prob_m1(params, V_safety, history;
-    choice_rule = CHOICERULE, rewards = REWARDS)
-    # Unpack parameters
-    # # Learning rate
-    # alpha = occursin("2lr", mymodel) ? [params[1], params[2]] : [params[1], params[1]] 
-    # # Fixed one of the two.
-    # # beta = occursin("Beta", split(mymodel, "_")[4]) ? 10 : params[2]      
-    # # Discounting rate. default to 1 - no discount
-    # if occursin("2Gamma", mymodel)
-    #     gamma = [params[2], params[3]]
-    # elseif occursin("Gamma", mymodel)
-    #     if occursin("Theta", mymodel) 
-    #         gamma = params[2] 
-    #     else
-    #         gamma = params[3]
-    #     end
-    # else
-    #     gamma = 0.5
-    # end
-    
-    # #risk param          
-    # theta  = occursin("Theta", mymodel) ? params[3] : 1  # Weight between safety and reward
-    # # beta = params[4]
-    # delta  = occursin("Delta", mymodel) ? params[2] : 0
 
-    
-    #alpha_wt = alpha_w * (1 - length(history) / 90)  # Decaying learning rate
-    #alpha_lt = alpha_l * (1 - length(history) / 90) 
-    # num_attacks = sum([i[2] for i in history])
-    # alpha_wt = alpha_w / max(1, length(history) - num_attacks)
-    # alpha_lt = alpha_l / max(1, num_attacks)
+# get the value for each specified location
+function get_location_util(loc, V_safety, params; 
+    choice_rule=CHOICERULE, rewards=REWARDS)
+    # Modified from 2_2_modeling_idv_agents_wo_learning
+    _, theta, _ = params  # Access the theta
 
-    #depending on how many lrs you have. use one of the line below
-    #alpha_t = [params[1], params[3]]
-    # if split(mymodel, "_")[1] == "lrhist"
-    #     alpha_t = alpha ./ (1 - length(history)/90)
-    # elseif split(mymodel, "_")[1] == "lrdecay"
-    #     alpha_t =  alpha ./ length(history)
-    # else
-    #     alpha_t = alpha
-    # end
-
-    _, theta, _ = params
-
-    # Update Q value
+    i = Int(loc);
     if choice_rule == "surv"
-        perceived_rewards = (rewards .- minimum(rewards)) ./ (maximum(rewards) - minimum(rewards))
-        Q = theta .* perceived_rewards .+ (1 - theta) .* V_safety  # Scale both to 0-1
-    elseif choice_rule == "econ" #discount both
-        Q = V_safety .* (rewards .^ theta) .- (1 .- V_safety) .* (10 .^ theta)
-
-    elseif choice_rule =="prelec"
-        V_safety_t = exp.(-(-log.(V_safety)) .^ theta)
-        Q = V_safety_t .* rewards .- (1 .- V_safety_t) .* 10
+        normalized_rewards = (rewards .- minimum(rewards)) ./ (maximum(rewards) - minimum(rewards))
+        Q = theta * V_safety[i] + (1 - theta) * normalized_rewards[i]  # +1 for 1-based indexing
+    elseif choice_rule == "econ"
+        Q = V_safety[i] * rewards[i] ^ theta - (1 - V_safety[i]) * 10 ^ theta
+    elseif choice_rule == "prelec"
+        V_safety_t = exp.(-(-log(V_safety[i])) .^ theta)  # Element-wise exponentiation
+        Q = V_safety_t * rewards[i] - (1 - V_safety_t) * 10
     else
-        println("Please input a valid choice rule!")
+        println("Input a valid choice rule")
+        return NaN  # Return NaN for invalid input
     end
 
-    # standardize to 0-1?
-    Q = (Q .- minimum(Q)) ./ (maximum(Q) - minimum(Q))
-
-    # # Calculate a vector for choice probabilities
-    # Q = Q ./ maximum(Q)
-    # # Q .+= delta * (1 - length(history)/90) * range(1, STEPS) / STEPS
-    # expQ = exp.(beta .* Q)
-    # choice_probs = expQ ./ sum(expQ)
-
-    # # return choice_probs, V_safety
-    # if occursin("mse", mymodel)
-    #     return Q, V_safety
-    # else
-    #     return choice_probs, V_safety
-    # end
     return Q
-
 end
 
-function get_sub_llh_idv(params, subdf::DataFrame)
+
+# get self preference based on V_safety and self params: normalized to 0-1
+function get_self_pref(V_safety, idv_params; steps=STEPS)
+    """
+    Utility for locations for player 1.
+    Compensate for partner's behavior to maximize self-reward.
+    Takes partner_step as predicted partner location.
+    """
+    # #if updateTheta2:
+    # utils = [get_location_util(ceil((i + pred_partner_step) / 2), V_safety, idv_params) for i in 1:steps]
+    # idv_params[end] = idv_params[end] + delta
+    #if updateTheta:
+    utils = [get_location_util(i, V_safety, idv_params) for i in 1:steps]
+    
+    # Normalize utilities to the same scale as partner preferences
+    min_util = minimum(utils)
+    max_util = maximum(utils)
+
+    den = max_util - min_util
+    normalized_utils = den > 1e-12 ? (utils .- min_util) ./ den : fill(0.0, length(utils))
+    
+    return normalized_utils
+end
+
+
+
+# get sub llh
+function get_sub_llh_idv(params, subdf::DataFrame; scorefunc=SCOREFUNC, beta=beta)
 
     # #constraints
     # for i in 1:length(params)
@@ -277,7 +274,7 @@ function get_sub_llh_idv(params, subdf::DataFrame)
     #     end
     # end
 
-    mse = 0  # Initialize an empty list to store likelihood values
+    score = 0  # Initialize an empty list to store likelihood values
     for pt in [0, 1]
         g = sort!(subdf[subdf.predatorType .== pt, :], :trial)
         # println(g[1:5, :])
@@ -293,19 +290,30 @@ function get_sub_llh_idv(params, subdf::DataFrame)
                 #update V_safety
                 V_safety = update_V_safety(params, history, V_safety)
                 #calculate location value
-                loc_v = player_choice_prob_m1(params, V_safety, history)
+                loc_v = get_self_pref(V_safety, params)
                 # Get likelihood of subject's current choice
                 #if row.outlier ==false #only record none outlier trial
                 # llh_t = occursin("mse", mymodel) ? (row.choice - argmax(choice_prob)) ^ 2 : -log(choice_prob[row.choice])  # Add 1 for 1-indexing in Julia
-                mse_t = (row.choice - argmax(loc_v)) ^ 2
-                mse += mse_t
+                # mse_t = (row.choice - argmax(loc_v)) ^ 2
+                # mse += mse_t
+                # if use likelihood
+                if occursin("llh", scorefunc)
+                    choice_prob = exp.(beta .* loc_v)
+                    choice_prob ./= sum(choice_prob)
+                    score_t = -log(choice_prob[row.choice])
+                else
+                    # choice_llh[prev_loc] += bias
+                    score_t = (row.choice - argmax(loc_v)) ^ 2
+                end
+                
+                score += score_t
                 #push to history
                 push!(history, (row.choice, row.attack))  # Append new tuple to history
             end
             
         end
     end
-    return mse  # Sum of negative log-likelihood
+    return score  # Sum of negative log-likelihood
 end
 
 # function to get V_safety given subject's real choice
@@ -321,7 +329,7 @@ function get_Vsafety(bf_params, subdf)
         for row in eachrow(g)  # Start from round 2
             if row.encounter!=1
                 V_safety = update_V_safety(bf_params, history, V_safety)
-                # choice_prob = player_choice_prob_m1(bf_params, V_safety, history)
+                # choice_prob = get_choice_value_m1(bf_params, V_safety, history)
                 # Append new tuple to history
                 push!(history, (row.choice, row.attack)) 
             end
@@ -333,7 +341,7 @@ function get_Vsafety(bf_params, subdf)
 end
 
 # function to simulate choices
-function sim_choice_idv(bf_params, subdf; mytype="partial")
+function sim_choice_idv(bf_params, subdf; mytype="partial", beta=beta)
     #mytype = full, partial
     #initialize as array of array
     # Vsafety_list = Vector{Vector{Float64}}()
@@ -346,15 +354,16 @@ function sim_choice_idv(bf_params, subdf; mytype="partial")
         V_safety = []
         # history = [Tuple(g[1, [:choice, :attack]])]  # Initialize history as a list of tuples
 
-        for row in eachrow(g)  # Start from round 2
+        for row in eachrow(g)  
             if row.encounter==1
                 sim_choices[row.trial] = row.choice
+                sim_attacks[row.trial] = row.attack
                 push!(history, (row.choice, row.attack))
                 V_safety = collect(1.0 : -1/STEPS : 1/STEPS)
                 # println(V_safety)
             else
                 V_safety = update_V_safety(bf_params, history, V_safety)
-                loc_v = player_choice_prob_m1(bf_params, V_safety, history)
+                loc_v = get_self_pref(V_safety, bf_params)
                 #get choice prob
                 choice_prob = exp.(loc_v .* beta) ./ sum(exp.(loc_v .* beta))
                 # try
@@ -377,20 +386,20 @@ function sim_choice_idv(bf_params, subdf; mytype="partial")
                     sim_attack = get_predator_choice(sim_choice, pt)
                     # Append simulation to to history
                     push!(history, (sim_choice, sim_attack)) 
-                    sim_attacks[row.trial] = im_attack
+                    sim_attacks[row.trial] = sim_attack
                 end
             end
         end
         # push!(Vsafety_list, V_safety)
     end
-
+    # println("Simulated choices: ", sim_choices, "Simulated attacks: ", sim_attacks)
     return sim_choices, sim_attacks
 end
 
 
 # function to get V_safety given subject's real choice
 function sim_sub_idv(bf_params_df, df_idv; mytype="partial")
-    sim_df_idv = DataFrame(subID = Int[], trial=Int[], sim_choice = Int[])
+    sim_df_idv = DataFrame(subID = Int[], trial=Int[], sim_choice = Int[], sim_attack = Int[])
     for s in unique(bf_params_df.subID)
         # for s in [203,204]
         subdf = df_idv[df_idv.subID .== s, :]
@@ -398,16 +407,17 @@ function sim_sub_idv(bf_params_df, df_idv; mytype="partial")
         bf_params = bf_params_df[bf_params_df.subID .== s, [:alpha, :theta, :gamma]]
         bf_params = vec(Matrix(bf_params))
         println("Sub: $s, Params: $bf_params")
+        
         #sim
-        try #in case some subs are excluded in first phase
-            sim_choices, sim_attacks = sim_choice_idv(bf_params, subdf, mytype=mytype)
-            sim_df = DataFrame(trial=collect(keys(sim_choices)), sim_choice=collect(values(sim_choices)), sim_attack = collect(values(sim_attacks)))
-            sim_df.subID .= s
-            #merge two dfs. 
-            sim_df_idv = vcat(sim_df_idv, sim_df) 
-        catch e
-            println("Failed to simulate sub $s")
-        end
+        # try #in case some subs are excluded in first phase
+        sim_choices, sim_attacks = sim_choice_idv(bf_params, subdf, mytype=mytype)
+        sim_df = DataFrame(trial=collect(keys(sim_choices)), sim_choice=collect(values(sim_choices)), sim_attack = collect(values(sim_attacks)))
+        sim_df.subID .= s
+        #merge two dfs. 
+        sim_df_idv = vcat(sim_df_idv, sim_df) 
+        # catch e
+        #     println("Failed to simulate sub $s")
+        # end
     end
     return sim_df_idv
 end
@@ -422,7 +432,7 @@ end
 #         # Generate random start values within bounds
 #         start = [rand() for i in 1:length(bounds)]
 #         # Minimize using the `optimize` function
-#         #### if call nlh2, also comment out the V_safety line in player_choice_prob_m1
+#         #### if call nlh2, also comment out the V_safety line in get_choice_value_m1
 #         res = optimize(params -> get_sum_nlh(params, bounds, sub_df), start)
 
 #         if res.minimum < best_v
@@ -437,74 +447,48 @@ end
 
 
 
-function get_location_util(loc, V_safety, params; 
-    choice_rule=CHOICERULE, rewards=REWARDS)
-    # Modified from 2_2_modeling_idv_agents_wo_learning
-    theta = params[end]  # Access the last parameter
-    i = Int(loc);
-    if choice_rule == "surv"
-        normalized_rewards = (rewards .- minimum(rewards)) ./ (maximum(rewards) - minimum(rewards))
-        Q = theta * V_safety[i] + (1 - theta) * normalized_rewards[i]  # +1 for 1-based indexing
-    elseif choice_rule == "econ"
-        Q = V_safety[i] * rewards[i] ^ theta - (1 - V_safety[i]) * 10 ^ theta
-    elseif choice_rule == "prelec"
-        V_safety_t = exp.(-(-log(V_safety[i])) .^ theta)  # Element-wise exponentiation
-        Q = V_safety_t * rewards[i] - (1 - V_safety_t) * 10
-    else
-        println("Input a valid choice rule")
-        return NaN  # Return NaN for invalid input
-    end
-
-    return Q
-end
-
-
-function get_self_pref(pred_partner_step, V_safety, idv_params; steps=STEPS)
-    """
-    Utility for locations for player 1.
-    Compensate for partner's behavior to maximize self-reward.
-    Takes partner_step as predicted partner location.
-    """
-    # #if updateTheta2:
-    # utils = [get_location_util(ceil((i + pred_partner_step) / 2), V_safety, idv_params) for i in 1:steps]
-    # idv_params[end] = idv_params[end] + delta
-    #if updateTheta:
-    utils = [get_location_util(i, V_safety, idv_params) for i in 1:steps]
-    
-    # Normalize utilities to the same scale as partner preferences
-    min_util = minimum(utils)
-    max_util = maximum(utils)
-    normalized_utils = (utils .- min_util) ./ (max_util - min_util)
-    
-    return normalized_utils
-end
-
-
-
-function get_choice_prob_m2(weight, beta, idv_params, V_safety, other_pref, mymodel2;
+function get_choice_value_m2(weight, idv_params, V_safety, other_pref, mymodel2;
     show_progress=false, steps=STEPS)
     # pred_partner_step: the step where the partner is most likely to act, based on other_pref
     pred_partner_step = argmax(other_pref)  # Julia equivalent of np.argmax
 
     # self_pref: preference of self after compensating for partner's choice
-    self_pref = get_self_pref(pred_partner_step, V_safety, idv_params) 
+    self_pref = get_self_pref(V_safety, idv_params) 
     
     # # Combining self and other preferences based on the weight
     # loc_v = weight * other_pref + (1 - weight) * self_pref
     if occursin("socReward", mymodel2)
-        self_other_diff = [abs(pred_partner_step - i) for i in range(1, steps)]
-        loc_v = self_pref .- weight .* self_other_diff
+        # self_other_diff = [abs(pred_partner_step - i) for i in range(1, steps)]
+        # loc_v = self_pref .- weight .* self_other_diff
+        positions = collect(1:steps)
+        if argmax(self_pref) < pred_partner_step
+            loc_v = self_pref .+ weight .* (positions .- pred_partner_step)
+        else
+            loc_v = self_pref .- weight .* (positions .- pred_partner_step)
+        end
 
     elseif occursin("arbWeight", mymodel2)
+        
         # new: Combining self and other preferences based on the weight
         if weight>=0
             loc_v = weight .* other_pref .+ (1 - weight) .* self_pref
         else
-            compensate = max(min(2 * argmax(self_pref) - pred_partner_step, 0), steps)
-            Q_compensate = [max(1.1 - 0.1 * 2^abs(i - compensate), 0) for i in 1:steps]
+            # compensate = max(min(2 * argmax(self_pref) - pred_partner_step, 0), steps)
+            compensate = clamp(2 * argmax(self_pref) - pred_partner_step, 1, steps)
+            # Q_compensate = [max(1.1 - 0.1 * 2^abs(i - compensate), 0) for i in 1:steps]
+            Q_compensate = exp.(-(collect(1:steps) .- compensate).^2 ./ (2 * 1^2))
+            # Q_compensate = exp.(abs.(collect(1:steps) .- compensate))
             loc_v = -weight .* Q_compensate .+ (1 + weight) .* self_pref
-        end
 
+            # Q_compensate = zeros(Float64, steps)
+            # i_self = argmax(self_pref)
+            # for j in 1:steps
+            #     mirrored_j = clamp(2 * i_self - j, 1, steps)
+            #     Q_compensate[mirrored_j] += other_pref[j]
+            # end
+            # loc_v = -weight .* Q_compensate .+ (1 + weight) .* self_pref
+        end
+    
     else
         loc_v = self_pref
     end
@@ -573,7 +557,7 @@ end
 # end 
 
 function get_sub_llh_grp(params_to_optimize, sub_df, Vsafety_list, mymodel2; 
-    gen=GENRULE, choice=CHOICERULE,
+    gen=GENRULE, choice=CHOICERULE, scorefunc=SCOREFUNC, beta=beta,
     show_progress=false, steps=STEPS)
 
     # Get the subject ID and safety value for this subject
@@ -581,7 +565,7 @@ function get_sub_llh_grp(params_to_optimize, sub_df, Vsafety_list, mymodel2;
     # sub_safety_val = safety_val[safety_val.subID .== sub, :]
     
     # Initialize variables
-    all_llh = []
+    all_score = []
     # safety_list = Dict{Any, Any}()
     # surprise = 0
     # choice_llhs = ones(steps) ./ steps
@@ -592,28 +576,14 @@ function get_sub_llh_grp(params_to_optimize, sub_df, Vsafety_list, mymodel2;
     theta_g = 0
     # delta = 0
     # know which model to run
-
-    ### changed here for nll
-    # if occursin("wdelta", mymodel2)
-    #     try
-    #         delta = params_to_optimize[2]
-    #         # weight = 0
-    #         weight = params_to_optimize[1]
-    #     catch e
-    #         delta = params_to_optimize[1]
-    #     end
-    # elseif occursin("updateTheta", mymodel2)
-    #     theta_g = params_to_optimize[1]
-    # elseif occursin("arbWeight", mymodel2) || occursin("socReward", mymodel2)
-    #     weight = params_to_optimize[1]
-    # end
     if occursin("updateTheta", mymodel2)
         theta_g = params_to_optimize[end]
     elseif occursin("arbWeight", mymodel2) || occursin("socReward", mymodel2)
         weight = params_to_optimize[end]
     end
     
-    self_params = [params_to_optimize[1], params_to_optimize[2], params_to_optimize[3]+theta_g]
+    # self_params = [params_to_optimize[1], params_to_optimize[2], params_to_optimize[3]+theta_g]
+    self_params = [params_to_optimize[1], max(params_to_optimize[2]+theta_g, 0), params_to_optimize[3]]
 
     # #constraints:
     # if ((self_params1[3]+theta_g) <0) || ((self_params1[3]+theta_g) >2)
@@ -645,42 +615,42 @@ function get_sub_llh_grp(params_to_optimize, sub_df, Vsafety_list, mymodel2;
                 blame = row.selfBlame != -1 ? row.selfBlame : 0.5
 
             else
-                choice = row.playerStep 
+                
                 # println(row.trial)
                 # println(self_history)
                 # Update safety value and other preferences
                 V_safety = update_V_safety(self_params, self_history, V_safety, phase=2)
-                pred_other_step = row.prediction != -1 ? row.prediction : other_history[end]
-                Q_partner = [max(1.1 - 0.1 * 2^abs(i - pred_other_step), 0) for i in 1:steps]
+                # pred_other_step = row.prediction != -1 ? row.prediction : other_history[end]
+                # Q_partner = [max(1.1 - 0.1 * 2^abs(i - pred_other_step), 0) for i in 1:steps]
+                # Q_partner = get_partner_pref([pred_other_step])
+                Q_partner = get_partner_pref(row.prediction, other_history)
+                # Calculate Q
+                loc_v = get_choice_value_m2(weight, self_params, V_safety, Q_partner, mymodel2)
 
-                # Calculate choice log likelihood
-                loc_v = get_choice_prob_m2(weight, beta, self_params, V_safety, Q_partner, mymodel2)
-                choice_llh = (choice - argmax(loc_v))^2
+                prev_loc = self_history[end][1]
 
-                # prev_loc = self_history[end][1]
-                # if occursin("mse", mymodel)
-                #     # choice_llh[prev_loc] += bias
-                #     choice_llh = (choice - argmax(choice_llhs))^2
-                    
-                # else
-                #     # choice_llh = (1-bias) .* choice_llh
-                #     # choice_llh[prev_loc] += bias
-                #     choice_llh = -log(max(choice_llhs[choice], 1e-10))
-                # end
-
-                if (row.step_rt<8) && (row.playerStep>0)
+                choice = row.playerStep 
+                if (row.step_rt<8) && (choice>0)
+                    if occursin("llh", scorefunc)
+                        choice_prob = exp.(beta .* loc_v)
+                        choice_prob ./= sum(choice_prob)
+                        score_t = -log(choice_prob[choice])
+                    else
+                        # choice_llh[prev_loc] += bias
+                        score_t = (choice - argmax(loc_v)) ^ 2
+                    end
                     # Store choice log likelihood if the choice is not computer generated
-                    push!(all_llh, choice_llh)
+                    push!(all_score, score_t)
                 end
 
                 if show_progress
                     println("P(choice = $(row.playerStep)) = $choice_llh on trial $(row.trial)")
                 end
 
-                if isnan(choice_llh)
-                    # choice_llh = 1e-10
-                    println([row.trial, row.step_rt])
-                end
+                # if isnan(score_t)
+                #     println("NaN score at trial $(row.trial) for sub $(row.subID)")
+                #     println([loc_v, choice_prob])
+                # end
 
                 blame = row.selfBlame != -1 ? row.selfBlame : 0.5
             end
@@ -697,7 +667,8 @@ function get_sub_llh_grp(params_to_optimize, sub_df, Vsafety_list, mymodel2;
             # end
         end
     end
-    return sum(all_llh)
+
+    return sum(all_score)
 end
 
 
@@ -729,6 +700,42 @@ end
 #     return best_params, best_v
 # end
 
+# function to get partner preference
+function get_partner_pref(real_prediction, partner_history; prediction_type=PREDICTIONTYPE, steps=STEPS)
+    # Simple preference model: higher preference for locations closer to predicted partner step
+    if prediction_type == "realPrediction"
+        pred_partner_step = real_prediction != -1 ? real_prediction : partner_history[end]
+        # partner_pref = [max(1.1 - 0.1 * 2^abs(i - pred_partner_step), 0) for i in 1:steps]
+        partner_pref = exp.(-(collect(1:steps) .- pred_partner_step).^2 ./ (2 * 1^2))
+        # partner_pref = exp.(-abs.(collect(1:steps) .- pred_partner_step))
+
+    elseif prediction_type == "rollingAverage"
+        if isempty(partner_history)
+            return fill(0.5, steps)
+        end
+
+        weights = (1 ./ (length(partner_history):-1:1))  # Weights for the last N choices
+        weights = weights / sum(weights)  # Normalize weights to sum to 1
+
+        partner_pref = zeros(Float64, steps)
+        steps_array = collect(1:steps)
+        sigma = 1
+        for (c, w) in zip(partner_history, weights)
+            partner_pref .+= w .* exp.(-(( steps_array .- c).^2) ./ (2 * sigma^2))
+        end
+    ######## TBD: read from learning
+    # elseif prediction_type == "learned"
+    #     # partner_pref = [row[Symbol("p_square_$k")] for k in 1:step]
+    #     partner_pref = partner_pref # Placeholder: replace with actual learned preferences
+
+
+    end
+    # normalize to 0-1
+    # vmin = minimum(partner_pref)
+    # vmax = maximum(partner_pref)
+    # partner_pref = (partner_pref .- vmin) ./ (vmax - vmin)
+    return partner_pref
+end
 
 
 # function to simulate choices
@@ -743,7 +750,8 @@ function sim_choice_grp(bf_params, subdf, Vsafety_list, mymodel2; mytype="partia
     if occursin("arbWeight", mymodel2) || occursin("socReward", mymodel2)
         weight = bf_params[end]
     elseif occursin("updateTheta", mymodel2)
-        self_params[3] = bf_params[3] + bf_params[4]
+        # self_params[3] = bf_params[3] + bf_params[4]
+        self_params[2] = max(bf_params[2] + bf_params[4], 0)
     end
 
     # Vsafety_list = get_Vsafety(par[1:3], sub_df_idv)
@@ -762,12 +770,15 @@ function sim_choice_grp(bf_params, subdf, Vsafety_list, mymodel2; mytype="partia
                 sim_choices[pt] = Dict{Int, Int}()
                 sim_choices[pt][row.trial] = row.playerStep
                 sim_attacks[pt] = Dict{Int, Int}()
-                
+                sim_attacks[pt][row.trial] = row.attack
+
             else # Start from round 2
                 V_safety = update_V_safety(self_params, self_history, V_safety, phase=2)
-                pred_other_step = row.prediction != -1 ? row.prediction : other_history[end]
-                Q_partner = [max(1.1 - 0.1 * 2^abs(i - pred_other_step), 0) for i in 1:steps]
-                loc_v = get_choice_prob_m2(weight, beta, self_params, V_safety, Q_partner, mymodel2)
+                # pred_other_step = row.prediction != -1 ? row.prediction : other_history[end]
+                # Q_partner = [max(1.1 - 0.1 * 2^abs(i - pred_other_step), 0) for i in 1:steps]
+                Q_partner = get_partner_pref(row.prediction, other_history)
+                
+                loc_v = get_choice_value_m2(weight, self_params, V_safety, Q_partner, mymodel2)
                 #get choice prob
                 choice_prob = exp.(loc_v .* beta) ./ sum(exp.(loc_v .* beta))
                 ##simulate a choice and save
@@ -780,6 +791,7 @@ function sim_choice_grp(bf_params, subdf, Vsafety_list, mymodel2; mytype="partia
                 if mytype=="partial"
                     # Append what actually happened to history
                     push!(self_history, (row.finalStep, row.attack))  
+                    sim_attacks[pt][row.trial] = row.attack
                 elseif mytype=="full"
                     #final step using sim choice
                     final_loc = get_final_step(sim_choice, row.partnerStep)
@@ -795,7 +807,6 @@ function sim_choice_grp(bf_params, subdf, Vsafety_list, mymodel2; mytype="partia
             # println(V_safety)
         end
     end
-    # println(sim_choices)
     return sim_choices, sim_attacks
 end
 
@@ -818,11 +829,13 @@ function sim_sub_grp(bf_params_df, df_idv, df_grp, mymodel2; mytype="partial")
     
         # try #in case some subs are excluded in first phase
         sim_choices, sim_attacks = sim_choice_grp(bf_params, sub_df_grp, Vsafety_list, mymodel2, mytype=mytype)
+        # print(sim_attacks)
         # Convert to DataFrame
         flattened_data = [(pt, trial, sim_choice) for (pt, trials) in sim_choices for (trial, sim_choice) in trials]
         sub_sim_df = DataFrame(flattened_data, [:predatorType, :trial, :sim_playerStep])
         flattened_data2 = [(pt, trial, sim_attack) for (pt, trials) in sim_attacks for (trial, sim_attack) in trials]
         sub_sim_df2 = DataFrame(flattened_data2, [:predatorType, :trial, :sim_attack])
+
         sub_sim_df = innerjoin(sub_sim_df, sub_sim_df2, on=[:predatorType, :trial])
         sub_sim_df.subID .= s
 
@@ -897,31 +910,31 @@ function fit_all(df_idv, df_grp, bounds, mymodel2, output_fname;
     #Iterate over unique rooms (skipping the first one)
     Threads.@threads for s in unique(df_idv.subID)
     # for s in [203,204]
-    try
-        sub_df_idv = df_idv[df_idv.subID .== s, :]
-        sub_df_grp = df_grp[df_grp.subID .== s, :]
-        
-        # Get self parameters and group data for the two people in the room
-        # p1_params = phase1_params[phase1_params.subID .== s, [:alpha, :gamma, :theta]][1, :]
-        println("Sub: $s")
-        #grid search
-        # try #in case some subs are excluded in first phase
-        # best_params, best_v = grid_search(sub_df_idv, sub_df_grp, bounds, grid_size, mymodel2)
-        new_bounds = bounds
-        new_grid_size =  1 / step_size
-        for i = 1:2 #run 3 times
-            new_bounds, new_grid_size = generation_grid_search(
-                new_bounds, new_grid_size, sub_df_idv, sub_df_grp, step_size, mymodel2)
-        end
-        best_params, best_nll = grid_search(sub_df_idv, sub_df_grp, new_bounds, new_grid_size*5/4, mymodel2)
-        #round and log: step size is 0.01 or 0.02
-        best_params = [round(i, digits=2) for i in best_params]
-        println([best_params, best_nll])
-        #save to df
-        push!(params_df, (s, best_params[1], best_params[2], best_params[3], best_params[4], best_nll))                               
-    catch e
-        println("Check sub $s")
+    # try
+    sub_df_idv = df_idv[df_idv.subID .== s, :]
+    sub_df_grp = df_grp[df_grp.subID .== s, :]
+    
+    # Get self parameters and group data for the two people in the room
+    # p1_params = phase1_params[phase1_params.subID .== s, [:alpha, :gamma, :theta]][1, :]
+    println("Sub: $s")
+    #grid search
+    # try #in case some subs are excluded in first phase
+    # best_params, best_v = grid_search(sub_df_idv, sub_df_grp, bounds, grid_size, mymodel2)
+    new_bounds = bounds
+    new_grid_size =  1 / step_size
+    for i = 1:2 #run 3 times
+        new_bounds, new_grid_size = generation_grid_search(
+            new_bounds, new_grid_size, sub_df_idv, sub_df_grp, step_size, mymodel2)
     end
+    best_params, best_nll = grid_search(sub_df_idv, sub_df_grp, new_bounds, new_grid_size*5/4, mymodel2)
+    #round and log: step size is 0.01 or 0.02
+    best_params = [round(i, digits=2) for i in best_params]
+    println([best_params, best_nll])
+    #save to df
+    push!(params_df, (s, best_params[1], best_params[2], best_params[3], best_params[4], best_nll))                               
+    # catch e
+    #     println("Check sub $s")
+    # end
 
     end #end for loop
 
@@ -943,12 +956,14 @@ function simulate_all(df_idv, df_grp, bf_params_df, mymodel2, output_path, mytyp
     sim_idv.k .= 1
     sim_grp = sim_sub_grp(bf_params_df, df_idv, df_grp, mymodel2, mytype=mytype)
     sim_grp.k .= 1
+    println(length(unique(sim_grp.trial)))
     
     for i in 2:k
         #idividual
         subset = sim_sub_idv(bf_params_df, df_idv, mytype=mytype)
         subset.k .= i
         sim_idv = vcat(sim_idv, subset)
+
 
         #group
         subset = sim_sub_grp(bf_params_df, df_idv, df_grp, mymodel2, mytype=mytype)
@@ -963,15 +978,14 @@ function simulate_all(df_idv, df_grp, bf_params_df, mymodel2, output_path, mytyp
 end
 
 # main function for recovery
-function recover_all(input_fname, mymodel2)
-    df_idv, df_grp = read_data()
+function recover_all(input_fname, mymodel2, df_idv, df_grp; sim_type="full")
     # read simulated data
-    sim_idv = CSV.read("$(input_fname)_sim_idv_partial.csv", DataFrame)
+    sim_idv = CSV.read("$(input_fname)_sim_idv_$(sim_type).csv", DataFrame)
     # sim_idv.trial = parse.(Int, sim_idv.trial)
     sim_idv = leftjoin(sim_idv, df_idv, on=[:subID, :trial])
     sort!(sim_idv, [:subID, :trial])
     transform!(groupby(sim_idv, [:subID, :predatorType]), :trial => (x -> 1:length(x)) => :encounter)
-    sim_grp = CSV.read("$(input_fname)_sim_group_partial.csv", DataFrame)
+    sim_grp = CSV.read("$(input_fname)_sim_group_$(sim_type).csv", DataFrame)
     # sim_grp.trial = parse.(Int, sim_grp.trial)
     sim_grp = leftjoin(sim_grp, df_grp, on=[:subID, :trial, :predatorType])
     sort!(sim_grp, [:room, :subID, :trial])
@@ -989,24 +1003,27 @@ function recover_all(input_fname, mymodel2)
     params_df = fit_all(sim_idv, sim_grp, bounds, mymodel2, output_fname; step_size = 5, save=false)
     #save
     CSV.write("$(input_fname)_recovery.csv", params_df)
-    println("recovered df saved to $output_fname")
+    println("recovered df saved to $(input_fname)_recovery")
 end
 
 
 ## read data
-folder = "_conf" #or "_rep2" if expl: folder = ""
+# folder = "_conf" #if expl: folder = ""
+folder = ""
 df_idv, df_grp = read_data(folder)
 
 #define model names
-mymodel = "peppgFull_econ_ThetaGamma"
+mymodel = "$(ALPHARULE)_$(GENRULE)_$(CHOICERULE)_ThetaGamma"
+println("Fitting model: $mymodel")
 # mymodel2 = "socReward"
-mymodel2 = "asIfIdv"
-# mymodel2 = "updateTheta"
-# mymodel2 = "arbWeight"
-# Define bounds (alpha, theta, gamma, w)
+mymodel2 = "asIfIdv$(SCOREFUNC)"
+# mymodel2 = "updateTheta$(SCOREFUNC)"
+# mymodel2 = "arbWeight$(SCOREFUNC)"
+# Define bounds (alpha, theta, gamma, w/gamma2)
 bounds = [(0, 1), (0, 1.5), (0, 1), (-1, 1)]
 #define outputpath
-output_fname = "../model_fits/rl$(folder)/$(mymodel)_$(mymodel2)$(folder)"
+output_fname = "../model_fits/$(mymodel)_$(mymodel2)$(folder)"
+# println("Output path: $output_fname")
 # # Fit the model and return parameters
 params_df = fit_all(df_idv, df_grp, bounds, mymodel2, output_fname)
 
@@ -1018,4 +1035,4 @@ params_df = CSV.read("$(output_fname).csv", DataFrame)
 sim_df = simulate_all(df_idv, df_grp, params_df, mymodel2, output_fname, mytype, k)
 
 # Model recovery
-# recover_all(output_fname, mymodel2)
+# recover_all(output_fname, mymodel2, df_idv, df_grp)
