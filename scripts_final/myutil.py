@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import re, io
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def float_extract(mylist):
     float_list = []
@@ -80,22 +81,7 @@ def results_to_df(res, num_betas):
     df = df.iloc[0: num_betas]
     return df
 
-def get_sig(p):
-    if p<1e-4:
-        sig = "****"
-    elif p<1e-3:
-        sig = "***"
-    elif p<1e-2:
-        sig = "**"
-    elif p<0.05:
-        sig = "*"
-    elif p<0.06:
-        sig = '.'
-    else:
-        sig = "n.s."
-    return sig
-
-def add_sigstars(p, cut=(0.05, 0.01, 0.001)):
+def add_sigstars(p, cut=(0.05, 0.01, 0.001), marks=('*', '**', '***', '†')):
     # † for p<0.001 (you can swap if you prefer)
     # if p < cut[3]: return '†'
     if p < cut[2]: return '***'
@@ -156,4 +142,55 @@ def df_to_png(df, formula, title, folder, dpi=300, font_size=10):
     plt.close(fig)
 
 
+# further separate this by egobias
+def get_ego_bias(df_group, groupby_cols=['subID', 'predatorType']):
+    ego_bias = df_group.query('selfBlame>-1').groupby(groupby_cols + ['attack'], as_index=False).agg(
+        selfBlame=('selfBlame', 'mean'),
+        n_trials=('selfBlame', 'count')
+    )
+    ego_bias = pd.merge(ego_bias.query('attack==True'), ego_bias.query('attack==False'), on=groupby_cols, suffixes=['_lose', '_win'])
+    ego_bias['ego_bias'] = ego_bias['selfBlame_win'] - ego_bias['selfBlame_lose']
+    return ego_bias.drop({'attack_win', 'attack_lose'}, axis=1)
+    # now has n_trials_lose and n_trials_win columns
 
+
+def get_sig(p):
+    if p<1e-4:
+        sig = "****"
+    elif p<1e-3:
+        sig = "***"
+    elif p<1e-2:
+        sig = "**"
+    elif p<0.05:
+        sig = "*"
+    elif p<0.06:
+        sig = '.'
+    else:
+        sig = "n.s."
+    return sig
+
+
+from numpy.linalg import lstsq
+from scipy.stats import pearsonr 
+def partial_corr_manual(df, x, y, covars, plot=False, xname='egocentric bias', yname='w', folder = ''):
+    Z = np.column_stack([np.ones(len(df)), df[covars].values])
+    
+    def residualize(var):
+        coef, _, _, _ = lstsq(Z, df[var].values, rcond=None)
+        return df[var].values - Z @ coef
+    
+    x_resid = residualize(x)
+    y_resid = residualize(y)
+    r, p = pearsonr(x_resid, y_resid)
+    if plot:
+        plot_df = pd.DataFrame({x: x_resid, y: y_resid})
+        sns.lmplot(data=plot_df, x=y, y=x, scatter_kws={'s':30, 'alpha':0.5})
+        p_txt = f'= {round(p, 3)}' if p>0.001 else '< 0.001'
+        plt.annotate(f"r = {round(r, 2)}\np {p_txt}", xycoords='axes fraction', xy=(0.05, 0.85), fontsize=16)
+        plt.ylabel(f'{xname} (residualized)')
+        plt.xlabel(f'{yname} (residualized)')
+    if folder != '':
+        plt.savefig(f'../paper_figs/{folder}/{x}_{y}_corr_resid_{folder}.png', 
+                bbox_inches='tight', dpi=200)
+    
+    return r, p
