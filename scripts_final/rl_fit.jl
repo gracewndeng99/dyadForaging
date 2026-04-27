@@ -20,7 +20,7 @@ beta = 5
 # Define MYMODEL
 GENRULE = "peppgFull"
 CHOICERULE = "econ"
-ALPHARULE = "lrdecay2" #"lrhist" #"flat" #"lrdecay2"
+ALPHARULE = "lrflat" #"lrhist" #"flat" #"lrdecay2"
 PREDICTIONTYPE = "rollingAverage"#"realPrediction"#"rollingAverage"#"learned"
 SCOREFUNC = "_llh" #"mse" or _llh
 
@@ -573,22 +573,15 @@ end
 function get_sub_llh_grp(params_to_optimize, sub_df, Vsafety_list, mymodel2; 
     gen=GENRULE, choice=CHOICERULE, scorefunc=SCOREFUNC, beta=beta,
     show_progress=false)
-
-    # Get the subject ID and safety value for this subject
-    # sub = unique(sub_df.subID)[1]
-    # sub_safety_val = safety_val[safety_val.subID .== sub, :]
     
     # Initialize variables
     all_score = []
-    # safety_list = Dict{Any, Any}()
-    # surprise = 0
-    # choice_llhs = ones(NSTEPS) ./ NSTEPS
     blame=0.5
 
     #initialize to 0
     weight = 0
     theta_g = 0
-    # delta = 0
+
     # know which model to run
     if occursin("updateTheta", mymodel2)
         theta_g = params_to_optimize[end]
@@ -596,7 +589,6 @@ function get_sub_llh_grp(params_to_optimize, sub_df, Vsafety_list, mymodel2;
         weight = params_to_optimize[end]
     end
     
-    # self_params = [params_to_optimize[1], params_to_optimize[2], params_to_optimize[3]+theta_g]
     self_params = [params_to_optimize[1], max(params_to_optimize[2]+theta_g, 0), params_to_optimize[3]]
 
     # #constraints:
@@ -685,34 +677,6 @@ function get_sub_llh_grp(params_to_optimize, sub_df, Vsafety_list, mymodel2;
     return sum(all_score)
 end
 
-
-# function opt(p1_params, sub_df, bounds, mymodel2; k=50, show_progress=false)
-#     best_v = Inf
-#     best_params = [-1, -1]
-    
-#     # Run the optimization k times
-#     for i in 1:k
-#         # Generate a random starting point within the bounds
-#         start = [rand() for i in 1:length(bounds)]
-        
-#         # Set up the optimization problem with bounds and constraints
-#         res = optimize(x -> get_sub_llh(x, p1_params, sub_df, safety_val, mymodel2), 
-#                        start, 
-#                        Optim.Options(store_trace=true, show_trace=show_progress))
-        
-#         # Update the best value and parameters if a better solution is found
-#         if Optim.minimum(res) < best_v
-#             best_v = Optim.minimum(res)
-#             best_params = Optim.minimizer(res)
-#         end
-        
-#         if show_progress
-#             println([i, best_params, best_v])
-#         end
-#     end
-    
-#     return best_params, best_v
-# end
 
 # function to get partner preference
 function get_partner_pref(real_prediction, partner_history; 
@@ -1043,9 +1007,12 @@ function recover_all(input_fname, mymodel2, df_idv, df_grp; sim_type="full")
 end
 
 
+
+# folder = "" 
+# folder = "_rep2"
+folder = "_conf"
+
 ## read data
-# folder = "_conf" #if expl: folder = "" or "_rep2"
-folder = "_rep2"
 df_idv, df_grp = read_data(folder)
 
 #define model names
