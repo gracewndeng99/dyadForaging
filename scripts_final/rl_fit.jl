@@ -20,7 +20,7 @@ beta = 5
 # Define MYMODEL
 GENRULE = "peppgFull"
 CHOICERULE = "econ"
-ALPHARULE = "lrflat" #"lrhist" #"flat" #"lrdecay2"
+ALPHARULE = "lrhist" #"lrhist" #"flat" #"lrdecay2"
 PREDICTIONTYPE = "rollingAverage"#"realPrediction"#"rollingAverage"#"learned"
 SCOREFUNC = "_llh" #"mse" or _llh
 
