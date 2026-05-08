@@ -142,6 +142,8 @@ def df_to_png(df, formula, title, folder, dpi=300, font_size=10):
     plt.close(fig)
 
 
+
+
 # further separate this by egobias
 def get_ego_bias(df_group, groupby_cols=['subID', 'predatorType']):
     ego_bias = df_group.query('selfBlame>-1').groupby(groupby_cols + ['attack'], as_index=False).agg(
@@ -194,3 +196,39 @@ def partial_corr_manual(df, x, y, covars, plot=False, xname='egocentric bias', y
                 bbox_inches='tight', dpi=200)
     
     return r, p
+
+
+def get_riskiness_wpair_by_predator_type(gi, gg):
+    """
+    Calculate riskiness with pair by predator type.
+    takes in individual and group dataframes,
+    """
+    #merge individual and group data
+    g = pd.merge(gi, gg, on=['subID', 'predatorType'])
+    #rename a couple of columns
+    g = g.rename({'choice':'individual', 'playerStep':'group'}, axis=1)
+    g['predator']  = g['predatorType'].apply(lambda x: 'low-threat' if x==0 else 'high-threat')
+
+    #add step / reward increase
+    g['step_inc'] = g['group'] - g['individual']
+    g['reward_inc'] = g['jointMoney'] / 2 - g['reward']
+
+    #add risky / risk-averse
+    group_stat = g.groupby(['room', 'predatorType'])['individual'].apply(lambda x: x.sort_values()).reset_index()
+    group_stat['risky_wpair'] = ['risk-averse','risk-prone'] * (len(group_stat)//2)
+    group_stat = pd.merge(g, group_stat).sort_values(by=['room', 'predatorType', 'individual'])
+
+    return group_stat
+
+
+def filter_groups_by_riskiness(group_stat):
+    """
+    Filter out groups where individual risk is the same.
+    """
+    c = group_stat.groupby(['room', 'predatorType']).size()
+    filtered_out = c[c==2].index
+    print(f"keep {len(filtered_out)} (room, predator)")
+    group_stat_filtered = group_stat[group_stat.set_index(['room', 'predatorType']).index.isin(filtered_out)]
+    # assert(len(group_stat_filtered)<=num_subs*2)
+    
+    return group_stat_filtered

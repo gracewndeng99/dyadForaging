@@ -1,0 +1,1001 @@
+,subID,model,model_prediction_error
+0,0,scalar RW,0.25
+1,1,scalar RW,0.35
+2,2,scalar RW,1.1333333333333333
+3,3,scalar RW,0.7666666666666667
+4,4,scalar RW,0.95
+5,5,scalar RW,1.6166666666666667
+6,6,scalar RW,0.26666666666666666
+7,7,scalar RW,0.03333333333333333
+8,8,scalar RW,0.5
+9,9,scalar RW,0.6166666666666667
+10,10,scalar RW,0.7333333333333333
+11,11,scalar RW,1.0166666666666666
+12,12,scalar RW,1.25
+13,13,scalar RW,0.38333333333333336
+14,14,scalar RW,1.9333333333333333
+15,15,scalar RW,2.4
+16,16,scalar RW,1.3166666666666667
+17,17,scalar RW,1.3333333333333333
+18,18,scalar RW,1.8833333333333333
+19,19,scalar RW,1.9
+20,20,scalar RW,0.85
+21,21,scalar RW,0.7333333333333333
+22,22,scalar RW,1.8166666666666667
+23,23,scalar RW,1.2
+24,24,scalar RW,4.5
+25,25,scalar RW,0.25
+26,26,scalar RW,0.5333333333333333
+27,27,scalar RW,0.3333333333333333
+28,28,scalar RW,1.0
+29,29,scalar RW,0.7333333333333333
+30,30,scalar RW,1.4666666666666666
+31,31,scalar RW,0.8
+32,32,scalar RW,2.15
+33,33,scalar RW,0.6833333333333333
+34,36,scalar RW,3.1333333333333333
+35,37,scalar RW,3.066666666666667
+36,38,scalar RW,1.5833333333333333
+37,39,scalar RW,1.0
+38,40,scalar RW,2.283333333333333
+39,41,scalar RW,1.5833333333333333
+40,42,scalar RW,0.55
+41,43,scalar RW,0.6833333333333333
+42,44,scalar RW,1.05
+43,45,scalar RW,0.9166666666666666
+44,46,scalar RW,2.75
+45,47,scalar RW,2.066666666666667
+46,48,scalar RW,1.1666666666666667
+47,49,scalar RW,0.5666666666666667
+48,50,scalar RW,1.4166666666666667
+49,51,scalar RW,1.5
+50,52,scalar RW,0.6333333333333333
+51,53,scalar RW,0.7666666666666667
+52,54,scalar RW,1.2666666666666666
+53,55,scalar RW,2.716666666666667
+54,56,scalar RW,1.4
+55,57,scalar RW,1.2333333333333334
+56,58,scalar RW,1.55
+57,59,scalar RW,1.9
+58,60,scalar RW,0.38333333333333336
+59,61,scalar RW,0.4666666666666667
+60,62,scalar RW,1.4
+61,63,scalar RW,0.8
+62,64,scalar RW,0.48333333333333334
+63,65,scalar RW,0.5
+64,66,scalar RW,0.6833333333333333
+65,67,scalar RW,0.48333333333333334
+66,68,scalar RW,0.5166666666666667
+67,69,scalar RW,0.6166666666666667
+68,70,scalar RW,0.36666666666666664
+69,71,scalar RW,0.16666666666666666
+70,72,scalar RW,1.1833333333333333
+71,73,scalar RW,0.8666666666666667
+72,74,scalar RW,0.8
+73,75,scalar RW,1.25
+74,76,scalar RW,0.6333333333333333
+75,77,scalar RW,1.2666666666666666
+76,78,scalar RW,0.5666666666666667
+77,79,scalar RW,0.55
+78,80,scalar RW,1.3833333333333333
+79,81,scalar RW,1.7166666666666666
+80,82,scalar RW,1.9
+81,83,scalar RW,1.65
+82,84,scalar RW,4.5
+83,85,scalar RW,0.7666666666666667
+84,86,scalar RW,0.21666666666666667
+85,87,scalar RW,0.26666666666666666
+86,88,scalar RW,1.2166666666666666
+87,89,scalar RW,1.0833333333333333
+88,90,scalar RW,2.8
+89,91,scalar RW,0.85
+90,92,scalar RW,2.033333333333333
+91,93,scalar RW,1.5666666666666667
+92,94,scalar RW,0.9
+93,95,scalar RW,1.1333333333333333
+94,96,scalar RW,4.933333333333334
+95,97,scalar RW,1.8
+96,98,scalar RW,1.1666666666666667
+97,99,scalar RW,1.2166666666666666
+98,100,scalar RW,1.9
+99,101,scalar RW,1.1666666666666667
+100,102,scalar RW,0.65
+101,103,scalar RW,1.3166666666666667
+102,104,scalar RW,0.9333333333333333
+103,105,scalar RW,1.1
+104,106,scalar RW,0.6
+105,107,scalar RW,0.6333333333333333
+106,108,scalar RW,1.1666666666666667
+107,109,scalar RW,0.25
+108,110,scalar RW,1.25
+109,111,scalar RW,1.8666666666666667
+110,112,scalar RW,0.3333333333333333
+111,113,scalar RW,0.36666666666666664
+112,114,scalar RW,0.26666666666666666
+113,115,scalar RW,0.5833333333333334
+114,116,scalar RW,0.7333333333333333
+115,117,scalar RW,0.9166666666666666
+116,118,scalar RW,0.2
+117,119,scalar RW,0.23333333333333334
+118,120,scalar RW,0.5666666666666667
+119,121,scalar RW,0.8833333333333333
+120,122,scalar RW,0.5
+121,123,scalar RW,0.8166666666666667
+122,124,scalar RW,0.5666666666666667
+123,125,scalar RW,1.55
+124,126,scalar RW,1.0
+125,127,scalar RW,0.7666666666666667
+126,128,scalar RW,1.3333333333333333
+127,129,scalar RW,1.65
+128,130,scalar RW,0.8
+129,131,scalar RW,1.4333333333333333
+130,132,scalar RW,2.7666666666666666
+131,133,scalar RW,1.2333333333333334
+132,134,scalar RW,0.18333333333333332
+133,135,scalar RW,0.13333333333333333
+134,136,scalar RW,0.45
+135,137,scalar RW,0.23333333333333334
+136,138,scalar RW,1.15
+137,139,scalar RW,1.35
+138,140,scalar RW,1.2666666666666666
+139,141,scalar RW,1.1333333333333333
+140,142,scalar RW,1.6
+141,143,scalar RW,1.55
+142,144,scalar RW,0.8
+143,145,scalar RW,1.1666666666666667
+144,146,scalar RW,3.8833333333333333
+145,147,scalar RW,1.7166666666666666
+146,148,scalar RW,1.55
+147,149,scalar RW,0.5833333333333334
+148,150,scalar RW,1.5666666666666667
+149,151,scalar RW,0.8666666666666667
+150,152,scalar RW,1.1166666666666667
+151,153,scalar RW,0.8
+152,154,scalar RW,0.9
+153,155,scalar RW,1.8333333333333333
+154,156,scalar RW,0.8
+155,157,scalar RW,0.6166666666666667
+156,158,scalar RW,0.9833333333333333
+157,159,scalar RW,0.9166666666666666
+158,160,scalar RW,1.1166666666666667
+159,161,scalar RW,0.9166666666666666
+160,162,scalar RW,0.5166666666666667
+161,163,scalar RW,0.9833333333333333
+162,164,scalar RW,2.783333333333333
+163,165,scalar RW,2.25
+164,166,scalar RW,0.9333333333333333
+165,167,scalar RW,2.0
+166,168,scalar RW,0.5833333333333334
+167,169,scalar RW,1.0333333333333334
+168,170,scalar RW,0.95
+169,171,scalar RW,1.05
+170,172,scalar RW,0.85
+171,173,scalar RW,1.6833333333333333
+172,174,scalar RW,0.5166666666666667
+173,175,scalar RW,0.65
+174,176,scalar RW,2.8833333333333333
+175,177,scalar RW,0.9
+176,178,scalar RW,0.9666666666666667
+177,179,scalar RW,0.9666666666666667
+178,180,scalar RW,0.38333333333333336
+179,181,scalar RW,0.25
+180,182,scalar RW,1.0333333333333334
+181,183,scalar RW,0.7
+182,184,scalar RW,0.5
+183,185,scalar RW,1.5666666666666667
+184,186,scalar RW,1.25
+185,187,scalar RW,1.6333333333333333
+186,188,scalar RW,0.2833333333333333
+187,189,scalar RW,0.36666666666666664
+188,190,scalar RW,0.9833333333333333
+189,191,scalar RW,1.8166666666666667
+190,192,scalar RW,0.55
+191,193,scalar RW,0.26666666666666666
+192,194,scalar RW,0.9333333333333333
+193,195,scalar RW,1.4333333333333333
+194,196,scalar RW,1.5166666666666666
+195,197,scalar RW,1.7666666666666666
+196,198,scalar RW,1.1166666666666667
+197,199,scalar RW,3.75
+198,200,scalar RW,2.35
+199,201,scalar RW,1.7166666666666666
+200,202,scalar RW,1.6166666666666667
+201,203,scalar RW,2.0166666666666666
+202,204,scalar RW,2.933333333333333
+203,205,scalar RW,1.3
+204,206,scalar RW,0.8833333333333333
+205,207,scalar RW,0.4
+206,208,scalar RW,1.1833333333333333
+207,209,scalar RW,1.4166666666666667
+208,210,scalar RW,0.3333333333333333
+209,211,scalar RW,0.36666666666666664
+210,212,scalar RW,1.5
+211,213,scalar RW,1.4333333333333333
+212,216,scalar RW,1.6666666666666667
+213,217,scalar RW,1.4833333333333334
+214,218,scalar RW,0.9333333333333333
+215,219,scalar RW,1.4166666666666667
+216,220,scalar RW,1.2333333333333334
+217,221,scalar RW,0.9833333333333333
+218,222,scalar RW,0.8166666666666667
+219,223,scalar RW,1.35
+220,224,scalar RW,1.9833333333333334
+221,225,scalar RW,1.9
+222,226,scalar RW,0.8166666666666667
+223,227,scalar RW,1.1666666666666667
+224,228,scalar RW,0.8
+225,229,scalar RW,0.85
+226,230,scalar RW,1.7333333333333334
+227,231,scalar RW,2.3
+228,232,scalar RW,1.0833333333333333
+229,233,scalar RW,1.1833333333333333
+230,234,scalar RW,0.25
+231,235,scalar RW,0.43333333333333335
+232,236,scalar RW,0.8166666666666667
+233,237,scalar RW,0.9166666666666666
+234,238,scalar RW,1.0333333333333334
+235,239,scalar RW,0.8
+236,240,scalar RW,0.65
+237,241,scalar RW,0.21666666666666667
+238,242,scalar RW,0.5833333333333334
+239,243,scalar RW,0.5333333333333333
+240,244,scalar RW,2.533333333333333
+241,245,scalar RW,1.35
+242,246,scalar RW,1.1
+243,247,scalar RW,1.35
+244,248,scalar RW,0.15
+245,249,scalar RW,0.6666666666666666
+246,250,scalar RW,0.9666666666666667
+247,251,scalar RW,1.0
+248,252,scalar RW,0.8333333333333334
+249,253,scalar RW,3.35
+250,0,player partner diff,0.4166666666666667
+251,1,player partner diff,0.2833333333333333
+252,2,player partner diff,1.1333333333333333
+253,3,player partner diff,0.8166666666666667
+254,4,player partner diff,1.6833333333333333
+255,5,player partner diff,2.7333333333333334
+256,6,player partner diff,0.26666666666666666
+257,7,player partner diff,0.08333333333333333
+258,8,player partner diff,0.55
+259,9,player partner diff,0.8833333333333333
+260,10,player partner diff,0.8333333333333334
+261,11,player partner diff,1.05
+262,12,player partner diff,1.2833333333333334
+263,13,player partner diff,1.15
+264,14,player partner diff,2.2666666666666666
+265,15,player partner diff,2.7666666666666666
+266,16,player partner diff,1.9666666666666666
+267,17,player partner diff,2.3333333333333335
+268,18,player partner diff,2.283333333333333
+269,19,player partner diff,1.8166666666666667
+270,20,player partner diff,1.0666666666666667
+271,21,player partner diff,0.7666666666666667
+272,22,player partner diff,1.9
+273,23,player partner diff,0.8833333333333333
+274,24,player partner diff,5.066666666666666
+275,25,player partner diff,0.26666666666666666
+276,26,player partner diff,0.5833333333333334
+277,27,player partner diff,0.5
+278,28,player partner diff,1.0
+279,29,player partner diff,0.9166666666666666
+280,30,player partner diff,1.65
+281,31,player partner diff,1.05
+282,32,player partner diff,2.15
+283,33,player partner diff,0.8833333333333333
+284,36,player partner diff,4.733333333333333
+285,37,player partner diff,3.066666666666667
+286,38,player partner diff,1.6333333333333333
+287,39,player partner diff,1.2333333333333334
+288,40,player partner diff,3.2666666666666666
+289,41,player partner diff,2.0166666666666666
+290,42,player partner diff,0.7
+291,43,player partner diff,0.6
+292,44,player partner diff,1.5666666666666667
+293,45,player partner diff,1.1333333333333333
+294,46,player partner diff,3.1166666666666667
+295,47,player partner diff,2.85
+296,48,player partner diff,1.5333333333333334
+297,49,player partner diff,1.0166666666666666
+298,50,player partner diff,1.45
+299,51,player partner diff,2.25
+300,52,player partner diff,0.6666666666666666
+301,53,player partner diff,1.15
+302,54,player partner diff,1.6666666666666667
+303,55,player partner diff,2.683333333333333
+304,56,player partner diff,1.95
+305,57,player partner diff,2.283333333333333
+306,58,player partner diff,1.5666666666666667
+307,59,player partner diff,2.4166666666666665
+308,60,player partner diff,0.6
+309,61,player partner diff,0.5166666666666667
+310,62,player partner diff,1.7166666666666666
+311,63,player partner diff,1.35
+312,64,player partner diff,0.7333333333333333
+313,65,player partner diff,0.6166666666666667
+314,66,player partner diff,0.8333333333333334
+315,67,player partner diff,1.1333333333333333
+316,68,player partner diff,0.6166666666666667
+317,69,player partner diff,0.6833333333333333
+318,70,player partner diff,0.36666666666666664
+319,71,player partner diff,0.21666666666666667
+320,72,player partner diff,1.6
+321,73,player partner diff,1.0833333333333333
+322,74,player partner diff,0.9166666666666666
+323,75,player partner diff,1.4333333333333333
+324,76,player partner diff,1.0833333333333333
+325,77,player partner diff,1.3333333333333333
+326,78,player partner diff,0.5666666666666667
+327,79,player partner diff,0.6166666666666667
+328,80,player partner diff,1.1333333333333333
+329,81,player partner diff,2.1166666666666667
+330,82,player partner diff,1.9
+331,83,player partner diff,2.4166666666666665
+332,84,player partner diff,4.25
+333,85,player partner diff,1.2833333333333334
+334,86,player partner diff,0.21666666666666667
+335,87,player partner diff,0.31666666666666665
+336,88,player partner diff,2.933333333333333
+337,89,player partner diff,1.2166666666666666
+338,90,player partner diff,3.0166666666666666
+339,91,player partner diff,0.9166666666666666
+340,92,player partner diff,2.95
+341,93,player partner diff,1.5333333333333334
+342,94,player partner diff,0.8833333333333333
+343,95,player partner diff,1.3166666666666667
+344,96,player partner diff,4.9
+345,97,player partner diff,1.8
+346,98,player partner diff,1.6166666666666667
+347,99,player partner diff,1.3333333333333333
+348,100,player partner diff,3.1666666666666665
+349,101,player partner diff,1.2833333333333334
+350,102,player partner diff,0.8333333333333334
+351,103,player partner diff,0.9666666666666667
+352,104,player partner diff,1.0833333333333333
+353,105,player partner diff,1.55
+354,106,player partner diff,0.65
+355,107,player partner diff,0.8833333333333333
+356,108,player partner diff,1.2166666666666666
+357,109,player partner diff,0.26666666666666666
+358,110,player partner diff,2.1
+359,111,player partner diff,2.1333333333333333
+360,112,player partner diff,0.48333333333333334
+361,113,player partner diff,0.5333333333333333
+362,114,player partner diff,0.26666666666666666
+363,115,player partner diff,0.6
+364,116,player partner diff,0.8833333333333333
+365,117,player partner diff,0.8
+366,118,player partner diff,0.43333333333333335
+367,119,player partner diff,0.23333333333333334
+368,120,player partner diff,0.6333333333333333
+369,121,player partner diff,1.2
+370,122,player partner diff,0.5666666666666667
+371,123,player partner diff,0.85
+372,124,player partner diff,1.2
+373,125,player partner diff,1.6833333333333333
+374,126,player partner diff,1.0333333333333334
+375,127,player partner diff,0.8833333333333333
+376,128,player partner diff,1.3833333333333333
+377,129,player partner diff,1.6833333333333333
+378,130,player partner diff,0.8333333333333334
+379,131,player partner diff,1.7
+380,132,player partner diff,2.8
+381,133,player partner diff,1.6666666666666667
+382,134,player partner diff,0.18333333333333332
+383,135,player partner diff,0.18333333333333332
+384,136,player partner diff,0.4666666666666667
+385,137,player partner diff,0.26666666666666666
+386,138,player partner diff,1.9833333333333334
+387,139,player partner diff,1.4
+388,140,player partner diff,1.5666666666666667
+389,141,player partner diff,1.0166666666666666
+390,142,player partner diff,1.5
+391,143,player partner diff,1.6833333333333333
+392,144,player partner diff,0.6166666666666667
+393,145,player partner diff,1.05
+394,146,player partner diff,3.95
+395,147,player partner diff,2.65
+396,148,player partner diff,1.5666666666666667
+397,149,player partner diff,0.9333333333333333
+398,150,player partner diff,2.75
+399,151,player partner diff,1.15
+400,152,player partner diff,1.0333333333333334
+401,153,player partner diff,0.85
+402,154,player partner diff,1.9666666666666666
+403,155,player partner diff,1.6333333333333333
+404,156,player partner diff,0.9166666666666666
+405,157,player partner diff,0.5666666666666667
+406,158,player partner diff,0.8
+407,159,player partner diff,0.9333333333333333
+408,160,player partner diff,1.1333333333333333
+409,161,player partner diff,1.1833333333333333
+410,162,player partner diff,0.5
+411,163,player partner diff,0.7666666666666667
+412,164,player partner diff,2.783333333333333
+413,165,player partner diff,2.7666666666666666
+414,166,player partner diff,1.4333333333333333
+415,167,player partner diff,1.9166666666666667
+416,168,player partner diff,0.9333333333333333
+417,169,player partner diff,1.1333333333333333
+418,170,player partner diff,1.1833333333333333
+419,171,player partner diff,1.0666666666666667
+420,172,player partner diff,1.35
+421,173,player partner diff,1.75
+422,174,player partner diff,0.7833333333333333
+423,175,player partner diff,1.1833333333333333
+424,176,player partner diff,2.8833333333333333
+425,177,player partner diff,1.9166666666666667
+426,178,player partner diff,0.8833333333333333
+427,179,player partner diff,0.9333333333333333
+428,180,player partner diff,0.5
+429,181,player partner diff,0.6
+430,182,player partner diff,1.1666666666666667
+431,183,player partner diff,0.8333333333333334
+432,184,player partner diff,0.9
+433,185,player partner diff,2.2666666666666666
+434,186,player partner diff,2.05
+435,187,player partner diff,2.6
+436,188,player partner diff,0.2833333333333333
+437,189,player partner diff,0.38333333333333336
+438,190,player partner diff,1.0333333333333334
+439,191,player partner diff,1.65
+440,192,player partner diff,0.6666666666666666
+441,193,player partner diff,0.3
+442,194,player partner diff,1.0
+443,195,player partner diff,1.5833333333333333
+444,196,player partner diff,2.85
+445,197,player partner diff,2.066666666666667
+446,198,player partner diff,1.9
+447,199,player partner diff,4.233333333333333
+448,200,player partner diff,2.566666666666667
+449,201,player partner diff,1.9833333333333334
+450,202,player partner diff,1.6833333333333333
+451,203,player partner diff,2.2333333333333334
+452,204,player partner diff,3.4
+453,205,player partner diff,2.1666666666666665
+454,206,player partner diff,0.5833333333333334
+455,207,player partner diff,0.5166666666666667
+456,208,player partner diff,1.1833333333333333
+457,209,player partner diff,1.4666666666666666
+458,210,player partner diff,0.35
+459,211,player partner diff,0.4666666666666667
+460,212,player partner diff,1.3833333333333333
+461,213,player partner diff,2.65
+462,216,player partner diff,1.4
+463,217,player partner diff,1.65
+464,218,player partner diff,1.15
+465,219,player partner diff,1.4333333333333333
+466,220,player partner diff,1.5
+467,221,player partner diff,1.35
+468,222,player partner diff,1.0666666666666667
+469,223,player partner diff,1.3666666666666667
+470,224,player partner diff,1.5
+471,225,player partner diff,1.7
+472,226,player partner diff,0.9
+473,227,player partner diff,1.4833333333333334
+474,228,player partner diff,0.8666666666666667
+475,229,player partner diff,0.65
+476,230,player partner diff,2.3833333333333333
+477,231,player partner diff,2.96
+478,232,player partner diff,1.1333333333333333
+479,233,player partner diff,1.4666666666666666
+480,234,player partner diff,0.23333333333333334
+481,235,player partner diff,0.43333333333333335
+482,236,player partner diff,1.0666666666666667
+483,237,player partner diff,0.8333333333333334
+484,238,player partner diff,1.6333333333333333
+485,239,player partner diff,0.8666666666666667
+486,240,player partner diff,0.6666666666666666
+487,241,player partner diff,0.23333333333333334
+488,242,player partner diff,0.6166666666666667
+489,243,player partner diff,0.6
+490,244,player partner diff,2.6666666666666665
+491,245,player partner diff,1.5
+492,246,player partner diff,1.6833333333333333
+493,247,player partner diff,2.4833333333333334
+494,248,player partner diff,0.23333333333333334
+495,249,player partner diff,0.9833333333333333
+496,250,player partner diff,1.05
+497,251,player partner diff,1.1
+498,252,player partner diff,0.8166666666666667
+499,253,player partner diff,3.316666666666667
+500,0,player partner diff + attack,0.6
+501,1,player partner diff + attack,0.43333333333333335
+502,2,player partner diff + attack,1.2666666666666666
+503,3,player partner diff + attack,0.95
+504,4,player partner diff + attack,1.7333333333333334
+505,5,player partner diff + attack,2.85
+506,6,player partner diff + attack,0.5333333333333333
+507,7,player partner diff + attack,0.45
+508,8,player partner diff + attack,0.8
+509,9,player partner diff + attack,0.9
+510,10,player partner diff + attack,1.0666666666666667
+511,11,player partner diff + attack,1.4833333333333334
+512,12,player partner diff + attack,1.4833333333333334
+513,13,player partner diff + attack,1.1833333333333333
+514,14,player partner diff + attack,2.3833333333333333
+515,15,player partner diff + attack,2.933333333333333
+516,16,player partner diff + attack,2.1
+517,17,player partner diff + attack,3.3666666666666667
+518,18,player partner diff + attack,2.45
+519,19,player partner diff + attack,1.8833333333333333
+520,20,player partner diff + attack,1.35
+521,21,player partner diff + attack,0.8333333333333334
+522,22,player partner diff + attack,2.8833333333333333
+523,23,player partner diff + attack,1.1
+524,24,player partner diff + attack,5.2
+525,25,player partner diff + attack,0.35
+526,26,player partner diff + attack,0.65
+527,27,player partner diff + attack,0.5666666666666667
+528,28,player partner diff + attack,1.05
+529,29,player partner diff + attack,1.05
+530,30,player partner diff + attack,1.7166666666666666
+531,31,player partner diff + attack,1.35
+532,32,player partner diff + attack,3.15
+533,33,player partner diff + attack,0.8666666666666667
+534,36,player partner diff + attack,4.8
+535,37,player partner diff + attack,3.1333333333333333
+536,38,player partner diff + attack,1.8666666666666667
+537,39,player partner diff + attack,1.5333333333333334
+538,40,player partner diff + attack,2.783333333333333
+539,41,player partner diff + attack,2.15
+540,42,player partner diff + attack,0.8166666666666667
+541,43,player partner diff + attack,0.7333333333333333
+542,44,player partner diff + attack,2.95
+543,45,player partner diff + attack,1.2833333333333334
+544,46,player partner diff + attack,3.283333333333333
+545,47,player partner diff + attack,3.15
+546,48,player partner diff + attack,1.7
+547,49,player partner diff + attack,1.3666666666666667
+548,50,player partner diff + attack,1.5
+549,51,player partner diff + attack,2.033333333333333
+550,52,player partner diff + attack,0.7166666666666667
+551,53,player partner diff + attack,1.2333333333333334
+552,54,player partner diff + attack,1.65
+553,55,player partner diff + attack,2.6166666666666667
+554,56,player partner diff + attack,1.8666666666666667
+555,57,player partner diff + attack,2.05
+556,58,player partner diff + attack,1.5
+557,59,player partner diff + attack,2.183333333333333
+558,60,player partner diff + attack,0.75
+559,61,player partner diff + attack,0.6
+560,62,player partner diff + attack,1.9666666666666666
+561,63,player partner diff + attack,1.4333333333333333
+562,64,player partner diff + attack,0.8333333333333334
+563,65,player partner diff + attack,0.7666666666666667
+564,66,player partner diff + attack,1.2166666666666666
+565,67,player partner diff + attack,1.3666666666666667
+566,68,player partner diff + attack,0.6666666666666666
+567,69,player partner diff + attack,0.7666666666666667
+568,70,player partner diff + attack,0.5333333333333333
+569,71,player partner diff + attack,0.3333333333333333
+570,72,player partner diff + attack,1.65
+571,73,player partner diff + attack,1.1
+572,74,player partner diff + attack,1.1666666666666667
+573,75,player partner diff + attack,1.8
+574,76,player partner diff + attack,1.4833333333333334
+575,77,player partner diff + attack,2.3666666666666667
+576,78,player partner diff + attack,0.8166666666666667
+577,79,player partner diff + attack,0.7833333333333333
+578,80,player partner diff + attack,1.3
+579,81,player partner diff + attack,1.5166666666666666
+580,82,player partner diff + attack,1.9666666666666666
+581,83,player partner diff + attack,2.8333333333333335
+582,84,player partner diff + attack,4.633333333333334
+583,85,player partner diff + attack,1.3333333333333333
+584,86,player partner diff + attack,0.6833333333333333
+585,87,player partner diff + attack,0.7166666666666667
+586,88,player partner diff + attack,2.683333333333333
+587,89,player partner diff + attack,2.05
+588,90,player partner diff + attack,2.9166666666666665
+589,91,player partner diff + attack,1.0333333333333334
+590,92,player partner diff + attack,2.0166666666666666
+591,93,player partner diff + attack,1.7666666666666666
+592,94,player partner diff + attack,1.2
+593,95,player partner diff + attack,1.55
+594,96,player partner diff + attack,4.933333333333334
+595,97,player partner diff + attack,1.9166666666666667
+596,98,player partner diff + attack,1.45
+597,99,player partner diff + attack,1.6833333333333333
+598,100,player partner diff + attack,2.8666666666666667
+599,101,player partner diff + attack,1.4833333333333334
+600,102,player partner diff + attack,0.95
+601,103,player partner diff + attack,1.0333333333333334
+602,104,player partner diff + attack,1.2166666666666666
+603,105,player partner diff + attack,1.3833333333333333
+604,106,player partner diff + attack,0.8833333333333333
+605,107,player partner diff + attack,0.9166666666666666
+606,108,player partner diff + attack,1.6
+607,109,player partner diff + attack,0.2833333333333333
+608,110,player partner diff + attack,1.6333333333333333
+609,111,player partner diff + attack,2.316666666666667
+610,112,player partner diff + attack,0.4166666666666667
+611,113,player partner diff + attack,0.65
+612,114,player partner diff + attack,0.6666666666666666
+613,115,player partner diff + attack,0.7833333333333333
+614,116,player partner diff + attack,1.0166666666666666
+615,117,player partner diff + attack,1.05
+616,118,player partner diff + attack,0.6833333333333333
+617,119,player partner diff + attack,0.4166666666666667
+618,120,player partner diff + attack,0.8
+619,121,player partner diff + attack,2.566666666666667
+620,122,player partner diff + attack,0.6833333333333333
+621,123,player partner diff + attack,1.0833333333333333
+622,124,player partner diff + attack,1.1333333333333333
+623,125,player partner diff + attack,1.7166666666666666
+624,126,player partner diff + attack,1.35
+625,127,player partner diff + attack,0.9666666666666667
+626,128,player partner diff + attack,1.5166666666666666
+627,129,player partner diff + attack,2.066666666666667
+628,130,player partner diff + attack,1.0
+629,131,player partner diff + attack,2.0833333333333335
+630,132,player partner diff + attack,3.566666666666667
+631,133,player partner diff + attack,1.6
+632,134,player partner diff + attack,0.43333333333333335
+633,135,player partner diff + attack,0.38333333333333336
+634,136,player partner diff + attack,0.6333333333333333
+635,137,player partner diff + attack,0.5
+636,138,player partner diff + attack,2.0166666666666666
+637,139,player partner diff + attack,1.9833333333333334
+638,140,player partner diff + attack,1.75
+639,141,player partner diff + attack,1.1166666666666667
+640,142,player partner diff + attack,1.5333333333333334
+641,143,player partner diff + attack,2.9
+642,144,player partner diff + attack,0.65
+643,145,player partner diff + attack,1.1833333333333333
+644,146,player partner diff + attack,4.066666666666666
+645,147,player partner diff + attack,2.7
+646,148,player partner diff + attack,1.5166666666666666
+647,149,player partner diff + attack,0.9666666666666667
+648,150,player partner diff + attack,2.2
+649,151,player partner diff + attack,1.1833333333333333
+650,152,player partner diff + attack,1.3166666666666667
+651,153,player partner diff + attack,1.0166666666666666
+652,154,player partner diff + attack,2.316666666666667
+653,155,player partner diff + attack,2.9
+654,156,player partner diff + attack,1.0
+655,157,player partner diff + attack,0.75
+656,158,player partner diff + attack,0.85
+657,159,player partner diff + attack,1.0666666666666667
+658,160,player partner diff + attack,1.1833333333333333
+659,161,player partner diff + attack,1.2666666666666666
+660,162,player partner diff + attack,0.6833333333333333
+661,163,player partner diff + attack,0.9666666666666667
+662,164,player partner diff + attack,3.65
+663,165,player partner diff + attack,2.4166666666666665
+664,166,player partner diff + attack,1.35
+665,167,player partner diff + attack,1.95
+666,168,player partner diff + attack,0.9
+667,169,player partner diff + attack,2.4833333333333334
+668,170,player partner diff + attack,1.2333333333333334
+669,171,player partner diff + attack,1.2
+670,172,player partner diff + attack,1.5833333333333333
+671,173,player partner diff + attack,1.8333333333333333
+672,174,player partner diff + attack,0.7166666666666667
+673,175,player partner diff + attack,1.2166666666666666
+674,176,player partner diff + attack,2.9166666666666665
+675,177,player partner diff + attack,1.9
+676,178,player partner diff + attack,1.3666666666666667
+677,179,player partner diff + attack,1.0833333333333333
+678,180,player partner diff + attack,0.7
+679,181,player partner diff + attack,0.6833333333333333
+680,182,player partner diff + attack,1.25
+681,183,player partner diff + attack,0.8666666666666667
+682,184,player partner diff + attack,1.0333333333333334
+683,185,player partner diff + attack,1.5833333333333333
+684,186,player partner diff + attack,2.4833333333333334
+685,187,player partner diff + attack,1.9833333333333334
+686,188,player partner diff + attack,0.38333333333333336
+687,189,player partner diff + attack,0.5333333333333333
+688,190,player partner diff + attack,1.1333333333333333
+689,191,player partner diff + attack,1.7666666666666666
+690,192,player partner diff + attack,0.8166666666666667
+691,193,player partner diff + attack,0.48333333333333334
+692,194,player partner diff + attack,1.0666666666666667
+693,195,player partner diff + attack,1.6166666666666667
+694,196,player partner diff + attack,1.5166666666666666
+695,197,player partner diff + attack,2.1
+696,198,player partner diff + attack,1.9333333333333333
+697,199,player partner diff + attack,3.8833333333333333
+698,200,player partner diff + attack,2.433333333333333
+699,201,player partner diff + attack,1.9833333333333334
+700,202,player partner diff + attack,2.3833333333333333
+701,203,player partner diff + attack,2.5166666666666666
+702,204,player partner diff + attack,3.5166666666666666
+703,205,player partner diff + attack,2.216666666666667
+704,206,player partner diff + attack,0.7333333333333333
+705,207,player partner diff + attack,0.7
+706,208,player partner diff + attack,1.15
+707,209,player partner diff + attack,1.7166666666666666
+708,210,player partner diff + attack,0.4666666666666667
+709,211,player partner diff + attack,0.5833333333333334
+710,212,player partner diff + attack,1.5666666666666667
+711,213,player partner diff + attack,2.4833333333333334
+712,216,player partner diff + attack,1.8666666666666667
+713,217,player partner diff + attack,1.7333333333333334
+714,218,player partner diff + attack,1.1333333333333333
+715,219,player partner diff + attack,1.6833333333333333
+716,220,player partner diff + attack,1.6333333333333333
+717,221,player partner diff + attack,1.2666666666666666
+718,222,player partner diff + attack,1.25
+719,223,player partner diff + attack,2.033333333333333
+720,224,player partner diff + attack,1.4666666666666666
+721,225,player partner diff + attack,1.9
+722,226,player partner diff + attack,1.0166666666666666
+723,227,player partner diff + attack,1.4333333333333333
+724,228,player partner diff + attack,0.9666666666666667
+725,229,player partner diff + attack,0.8
+726,230,player partner diff + attack,1.95
+727,231,player partner diff + attack,2.86
+728,232,player partner diff + attack,1.1833333333333333
+729,233,player partner diff + attack,1.4166666666666667
+730,234,player partner diff + attack,0.3
+731,235,player partner diff + attack,0.4666666666666667
+732,236,player partner diff + attack,1.1833333333333333
+733,237,player partner diff + attack,0.9666666666666667
+734,238,player partner diff + attack,1.7333333333333334
+735,239,player partner diff + attack,1.0333333333333334
+736,240,player partner diff + attack,0.8333333333333334
+737,241,player partner diff + attack,0.6333333333333333
+738,242,player partner diff + attack,0.8
+739,243,player partner diff + attack,0.8333333333333334
+740,244,player partner diff + attack,2.5833333333333335
+741,245,player partner diff + attack,1.7166666666666666
+742,246,player partner diff + attack,1.65
+743,247,player partner diff + attack,1.6333333333333333
+744,248,player partner diff + attack,0.4166666666666667
+745,249,player partner diff + attack,0.85
+746,250,player partner diff + attack,1.2166666666666666
+747,251,player partner diff + attack,1.3166666666666667
+748,252,player partner diff + attack,0.9333333333333333
+749,253,player partner diff + attack,3.533333333333333
+750,0,win-stay-lose-shift,0.4
+751,1,win-stay-lose-shift,0.35
+752,2,win-stay-lose-shift,1.1333333333333333
+753,3,win-stay-lose-shift,0.9166666666666666
+754,4,win-stay-lose-shift,1.6833333333333333
+755,5,win-stay-lose-shift,2.2
+756,6,win-stay-lose-shift,0.26666666666666666
+757,7,win-stay-lose-shift,0.08333333333333333
+758,8,win-stay-lose-shift,0.55
+759,9,win-stay-lose-shift,0.8833333333333333
+760,10,win-stay-lose-shift,1.05
+761,11,win-stay-lose-shift,1.1333333333333333
+762,12,win-stay-lose-shift,1.2833333333333334
+763,13,win-stay-lose-shift,1.35
+764,14,win-stay-lose-shift,2.2666666666666666
+765,15,win-stay-lose-shift,2.9833333333333334
+766,16,win-stay-lose-shift,1.9666666666666666
+767,17,win-stay-lose-shift,2.5833333333333335
+768,18,win-stay-lose-shift,2.35
+769,19,win-stay-lose-shift,2.95
+770,20,win-stay-lose-shift,1.0833333333333333
+771,21,win-stay-lose-shift,1.0666666666666667
+772,22,win-stay-lose-shift,1.9333333333333333
+773,23,win-stay-lose-shift,1.7666666666666666
+774,24,win-stay-lose-shift,5.633333333333334
+775,25,win-stay-lose-shift,0.26666666666666666
+776,26,win-stay-lose-shift,0.5833333333333334
+777,27,win-stay-lose-shift,0.5166666666666667
+778,28,win-stay-lose-shift,1.1666666666666667
+779,29,win-stay-lose-shift,0.9333333333333333
+780,30,win-stay-lose-shift,2.1333333333333333
+781,31,win-stay-lose-shift,1.05
+782,32,win-stay-lose-shift,2.15
+783,33,win-stay-lose-shift,0.9
+784,36,win-stay-lose-shift,4.55
+785,37,win-stay-lose-shift,3.066666666666667
+786,38,win-stay-lose-shift,1.6333333333333333
+787,39,win-stay-lose-shift,1.2166666666666666
+788,40,win-stay-lose-shift,2.3833333333333333
+789,41,win-stay-lose-shift,2.3666666666666667
+790,42,win-stay-lose-shift,0.7666666666666667
+791,43,win-stay-lose-shift,0.6666666666666666
+792,44,win-stay-lose-shift,1.8
+793,45,win-stay-lose-shift,1.2
+794,46,win-stay-lose-shift,2.9833333333333334
+795,47,win-stay-lose-shift,3.4
+796,48,win-stay-lose-shift,1.5833333333333333
+797,49,win-stay-lose-shift,0.75
+798,50,win-stay-lose-shift,1.5
+799,51,win-stay-lose-shift,2.2666666666666666
+800,52,win-stay-lose-shift,0.6666666666666666
+801,53,win-stay-lose-shift,1.5833333333333333
+802,54,win-stay-lose-shift,1.5833333333333333
+803,55,win-stay-lose-shift,2.9833333333333334
+804,56,win-stay-lose-shift,1.95
+805,57,win-stay-lose-shift,2.9833333333333334
+806,58,win-stay-lose-shift,1.9333333333333333
+807,59,win-stay-lose-shift,2.183333333333333
+808,60,win-stay-lose-shift,0.6333333333333333
+809,61,win-stay-lose-shift,0.5166666666666667
+810,62,win-stay-lose-shift,1.7
+811,63,win-stay-lose-shift,2.1
+812,64,win-stay-lose-shift,0.7333333333333333
+813,65,win-stay-lose-shift,0.6166666666666667
+814,66,win-stay-lose-shift,0.9666666666666667
+815,67,win-stay-lose-shift,1.3833333333333333
+816,68,win-stay-lose-shift,0.7666666666666667
+817,69,win-stay-lose-shift,0.7166666666666667
+818,70,win-stay-lose-shift,0.4166666666666667
+819,71,win-stay-lose-shift,0.25
+820,72,win-stay-lose-shift,1.6
+821,73,win-stay-lose-shift,1.1166666666666667
+822,74,win-stay-lose-shift,1.1666666666666667
+823,75,win-stay-lose-shift,1.45
+824,76,win-stay-lose-shift,1.0833333333333333
+825,77,win-stay-lose-shift,1.3666666666666667
+826,78,win-stay-lose-shift,0.6833333333333333
+827,79,win-stay-lose-shift,0.6333333333333333
+828,80,win-stay-lose-shift,1.2666666666666666
+829,81,win-stay-lose-shift,2.216666666666667
+830,82,win-stay-lose-shift,2.1166666666666667
+831,83,win-stay-lose-shift,2.7666666666666666
+832,84,win-stay-lose-shift,4.266666666666667
+833,85,win-stay-lose-shift,1.0666666666666667
+834,86,win-stay-lose-shift,0.21666666666666667
+835,87,win-stay-lose-shift,0.31666666666666665
+836,88,win-stay-lose-shift,2.066666666666667
+837,89,win-stay-lose-shift,1.6
+838,90,win-stay-lose-shift,3.216666666666667
+839,91,win-stay-lose-shift,0.9833333333333333
+840,92,win-stay-lose-shift,2.2333333333333334
+841,93,win-stay-lose-shift,2.0166666666666666
+842,94,win-stay-lose-shift,1.1
+843,95,win-stay-lose-shift,1.2666666666666666
+844,96,win-stay-lose-shift,4.883333333333334
+845,97,win-stay-lose-shift,1.8
+846,98,win-stay-lose-shift,1.65
+847,99,win-stay-lose-shift,1.7833333333333334
+848,100,win-stay-lose-shift,2.9833333333333334
+849,101,win-stay-lose-shift,1.2833333333333334
+850,102,win-stay-lose-shift,0.95
+851,103,win-stay-lose-shift,1.3333333333333333
+852,104,win-stay-lose-shift,1.2333333333333334
+853,105,win-stay-lose-shift,1.3666666666666667
+854,106,win-stay-lose-shift,0.85
+855,107,win-stay-lose-shift,0.8833333333333333
+856,108,win-stay-lose-shift,1.1833333333333333
+857,109,win-stay-lose-shift,0.2833333333333333
+858,110,win-stay-lose-shift,1.4166666666666667
+859,111,win-stay-lose-shift,2.3333333333333335
+860,112,win-stay-lose-shift,0.43333333333333335
+861,113,win-stay-lose-shift,0.6
+862,114,win-stay-lose-shift,0.26666666666666666
+863,115,win-stay-lose-shift,0.6
+864,116,win-stay-lose-shift,1.0166666666666666
+865,117,win-stay-lose-shift,1.0333333333333334
+866,118,win-stay-lose-shift,0.43333333333333335
+867,119,win-stay-lose-shift,0.23333333333333334
+868,120,win-stay-lose-shift,0.6333333333333333
+869,121,win-stay-lose-shift,1.35
+870,122,win-stay-lose-shift,0.7166666666666667
+871,123,win-stay-lose-shift,0.85
+872,124,win-stay-lose-shift,1.3
+873,125,win-stay-lose-shift,1.6833333333333333
+874,126,win-stay-lose-shift,1.0333333333333334
+875,127,win-stay-lose-shift,1.2
+876,128,win-stay-lose-shift,1.4
+877,129,win-stay-lose-shift,1.7666666666666666
+878,130,win-stay-lose-shift,0.9333333333333333
+879,131,win-stay-lose-shift,2.066666666666667
+880,132,win-stay-lose-shift,2.9166666666666665
+881,133,win-stay-lose-shift,1.8
+882,134,win-stay-lose-shift,0.18333333333333332
+883,135,win-stay-lose-shift,0.36666666666666664
+884,136,win-stay-lose-shift,0.48333333333333334
+885,137,win-stay-lose-shift,0.31666666666666665
+886,138,win-stay-lose-shift,1.9333333333333333
+887,139,win-stay-lose-shift,1.5
+888,140,win-stay-lose-shift,1.6833333333333333
+889,141,win-stay-lose-shift,1.1666666666666667
+890,142,win-stay-lose-shift,1.9833333333333334
+891,143,win-stay-lose-shift,2.1166666666666667
+892,144,win-stay-lose-shift,1.0833333333333333
+893,145,win-stay-lose-shift,1.1666666666666667
+894,146,win-stay-lose-shift,3.95
+895,147,win-stay-lose-shift,2.65
+896,148,win-stay-lose-shift,1.55
+897,149,win-stay-lose-shift,0.9333333333333333
+898,150,win-stay-lose-shift,1.7
+899,151,win-stay-lose-shift,1.2666666666666666
+900,152,win-stay-lose-shift,1.4833333333333334
+901,153,win-stay-lose-shift,0.85
+902,154,win-stay-lose-shift,2.1333333333333333
+903,155,win-stay-lose-shift,2.4
+904,156,win-stay-lose-shift,0.9333333333333333
+905,157,win-stay-lose-shift,0.6166666666666667
+906,158,win-stay-lose-shift,1.2166666666666666
+907,159,win-stay-lose-shift,0.9666666666666667
+908,160,win-stay-lose-shift,1.35
+909,161,win-stay-lose-shift,1.1833333333333333
+910,162,win-stay-lose-shift,0.5166666666666667
+911,163,win-stay-lose-shift,1.4666666666666666
+912,164,win-stay-lose-shift,2.8833333333333333
+913,165,win-stay-lose-shift,2.466666666666667
+914,166,win-stay-lose-shift,1.7
+915,167,win-stay-lose-shift,1.9666666666666666
+916,168,win-stay-lose-shift,0.9333333333333333
+917,169,win-stay-lose-shift,1.4833333333333334
+918,170,win-stay-lose-shift,1.4666666666666666
+919,171,win-stay-lose-shift,1.0666666666666667
+920,172,win-stay-lose-shift,1.7666666666666666
+921,173,win-stay-lose-shift,2.7666666666666666
+922,174,win-stay-lose-shift,0.7833333333333333
+923,175,win-stay-lose-shift,1.4666666666666666
+924,176,win-stay-lose-shift,2.8833333333333333
+925,177,win-stay-lose-shift,1.95
+926,178,win-stay-lose-shift,1.0333333333333334
+927,179,win-stay-lose-shift,1.05
+928,180,win-stay-lose-shift,0.6333333333333333
+929,181,win-stay-lose-shift,0.7833333333333333
+930,182,win-stay-lose-shift,1.2
+931,183,win-stay-lose-shift,1.0666666666666667
+932,184,win-stay-lose-shift,1.0833333333333333
+933,185,win-stay-lose-shift,1.6
+934,186,win-stay-lose-shift,2.3833333333333333
+935,187,win-stay-lose-shift,2.7666666666666666
+936,188,win-stay-lose-shift,0.2833333333333333
+937,189,win-stay-lose-shift,0.4
+938,190,win-stay-lose-shift,1.15
+939,191,win-stay-lose-shift,1.7833333333333334
+940,192,win-stay-lose-shift,0.6666666666666666
+941,193,win-stay-lose-shift,0.3
+942,194,win-stay-lose-shift,1.0166666666666666
+943,195,win-stay-lose-shift,2.1166666666666667
+944,196,win-stay-lose-shift,1.95
+945,197,win-stay-lose-shift,2.1
+946,198,win-stay-lose-shift,2.25
+947,199,win-stay-lose-shift,3.683333333333333
+948,200,win-stay-lose-shift,2.566666666666667
+949,201,win-stay-lose-shift,2.4833333333333334
+950,202,win-stay-lose-shift,2.1666666666666665
+951,203,win-stay-lose-shift,2.2666666666666666
+952,204,win-stay-lose-shift,3.9833333333333334
+953,205,win-stay-lose-shift,2.55
+954,206,win-stay-lose-shift,1.1166666666666667
+955,207,win-stay-lose-shift,0.5
+956,208,win-stay-lose-shift,1.35
+957,209,win-stay-lose-shift,1.4666666666666666
+958,210,win-stay-lose-shift,0.35
+959,211,win-stay-lose-shift,0.4666666666666667
+960,212,win-stay-lose-shift,1.75
+961,213,win-stay-lose-shift,1.9333333333333333
+962,216,win-stay-lose-shift,1.95
+963,217,win-stay-lose-shift,1.95
+964,218,win-stay-lose-shift,1.1166666666666667
+965,219,win-stay-lose-shift,2.0166666666666666
+966,220,win-stay-lose-shift,1.5
+967,221,win-stay-lose-shift,1.55
+968,222,win-stay-lose-shift,1.0666666666666667
+969,223,win-stay-lose-shift,1.4666666666666666
+970,224,win-stay-lose-shift,2.3666666666666667
+971,225,win-stay-lose-shift,2.216666666666667
+972,226,win-stay-lose-shift,0.9
+973,227,win-stay-lose-shift,1.5833333333333333
+974,228,win-stay-lose-shift,0.95
+975,229,win-stay-lose-shift,0.9833333333333333
+976,230,win-stay-lose-shift,2.3
+977,231,win-stay-lose-shift,2.3
+978,232,win-stay-lose-shift,1.9666666666666666
+979,233,win-stay-lose-shift,1.4833333333333334
+980,234,win-stay-lose-shift,0.38333333333333336
+981,235,win-stay-lose-shift,0.43333333333333335
+982,236,win-stay-lose-shift,1.0833333333333333
+983,237,win-stay-lose-shift,1.0333333333333334
+984,238,win-stay-lose-shift,1.6333333333333333
+985,239,win-stay-lose-shift,0.8666666666666667
+986,240,win-stay-lose-shift,0.7333333333333333
+987,241,win-stay-lose-shift,0.23333333333333334
+988,242,win-stay-lose-shift,0.6166666666666667
+989,243,win-stay-lose-shift,0.6166666666666667
+990,244,win-stay-lose-shift,2.75
+991,245,win-stay-lose-shift,1.5
+992,246,win-stay-lose-shift,1.75
+993,247,win-stay-lose-shift,1.3666666666666667
+994,248,win-stay-lose-shift,0.31666666666666665
+995,249,win-stay-lose-shift,1.05
+996,250,win-stay-lose-shift,1.3
+997,251,win-stay-lose-shift,1.1
+998,252,win-stay-lose-shift,1.2166666666666666
+999,253,win-stay-lose-shift,3.3666666666666667

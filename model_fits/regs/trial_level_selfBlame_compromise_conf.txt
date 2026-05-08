@@ -1,0 +1,29 @@
+                                   Mixed Linear Model Regression Results
+============================================================================================================
+Model:                               MixedLM                  Dependent Variable:                  selfBlame
+No. Observations:                    7358                     Method:                              REML     
+No. Groups:                          514                      Scale:                               0.0222   
+Min. group size:                     4                        Log-Likelihood:                      2267.9681
+Max. group size:                     25                       Converged:                           No       
+Mean group size:                     14.3                                                                   
+------------------------------------------------------------------------------------------------------------
+                                                                  Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+------------------------------------------------------------------------------------------------------------
+Intercept                                                          0.063    0.004 14.754 0.000  0.054  0.071
+outcome[T.captured]                                               -0.098    0.010 -9.618 0.000 -0.118 -0.078
+compromise                                                        -0.058    0.008 -7.112 0.000 -0.074 -0.042
+outcome[T.captured]:compromise                                     0.082    0.019  4.245 0.000  0.044  0.120
+player_partner_diff                                                0.031    0.002 12.466 0.000  0.026  0.036
+player_partner_diff:outcome[T.captured]                            0.023    0.002 13.719 0.000  0.020  0.027
+player_partner_diff:compromise                                     0.016    0.005  3.467 0.001  0.007  0.025
+Group Var                                                          0.002    0.001                           
+Group x outcome[T.captured] Cov                                   -0.004    0.003                           
+outcome[T.captured] Var                                            0.025                                    
+Group x player_partner_diff Cov                                   -0.000    0.001                           
+outcome[T.captured] x player_partner_diff Cov                      0.001                                    
+player_partner_diff Var                                            0.002                                    
+Group x player_partner_diff:outcome[T.captured] Cov                0.000    0.001                           
+outcome[T.captured] x player_partner_diff:outcome[T.captured] Cov  0.001                                    
+player_partner_diff x player_partner_diff:outcome[T.captured] Cov  0.001                                    
+player_partner_diff:outcome[T.captured] Var                        0.001                                    
+============================================================================================================

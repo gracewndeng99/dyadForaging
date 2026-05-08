@@ -1,0 +1,27 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             reward_inc   R-squared:                       0.120
+Model:                            OLS   Adj. R-squared:                  0.117
+Method:                 Least Squares   F-statistic:                     47.15
+Date:                Thu, 07 May 2026   Prob (F-statistic):           1.42e-28
+Time:                        21:04:14   Log-Likelihood:                -3433.2
+No. Observations:                1046   AIC:                             6874.
+Df Residuals:                    1042   BIC:                             6894.
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+===================================================================================================================
+                                                      coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------------------------------------
+Intercept                                           1.0636      0.211      5.052      0.000       0.650       1.477
+self_partner_risk_diff                             -0.6391      0.103     -6.185      0.000      -0.842      -0.436
+step_inc_towards_partner                            0.5157      0.154      3.338      0.001       0.213       0.819
+self_partner_risk_diff:step_inc_towards_partner    -0.3287      0.059     -5.586      0.000      -0.444      -0.213
+==============================================================================
+Omnibus:                       29.383   Durbin-Watson:                   1.534
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               67.750
+Skew:                           0.005   Prob(JB):                     1.94e-15
+Kurtosis:                       4.247   Cond. No.                         4.49
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

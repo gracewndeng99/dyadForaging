@@ -1,0 +1,6 @@
+idv safe: m= 5.59125408113064,              se=0.0770112783745326
+idv dangerous: m= 4.151702396748016,              se=0.06152861216412687
+group safe: m= 5.458989018161776,              se=0.0716907037522349
+group dangerous: m= 4.115970032253141,               se=0.05639413688211966
+RA: dyad vs idv step:TtestResult(statistic=6.333081796092792, pvalue=5.326118460528296e-10, df=504)
+RP: dyad vs idv step: TtestResult(statistic=-9.086386139413996, pvalue=2.336112971484491e-18, df=504)

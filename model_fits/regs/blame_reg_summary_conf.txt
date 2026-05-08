@@ -1,17 +1,17 @@
                                    Mixed Linear Model Regression Results
 ============================================================================================================
 Model:                              MixedLM                  Dependent Variable:                  selfBlame 
-No. Observations:                   30361                    Method:                              REML      
+No. Observations:                   30355                    Method:                              REML      
 No. Groups:                         514                      Scale:                               0.0252    
-Min. group size:                    45                       Log-Likelihood:                      10772.7221
+Min. group size:                    45                       Log-Likelihood:                      10772.6506
 Max. group size:                    60                       Converged:                           Yes       
 Mean group size:                    59.1                                                                    
 ------------------------------------------------------------------------------------------------------------
                                                                   Coef.  Std.Err.   z    P>|z| [0.025 0.975]
 ------------------------------------------------------------------------------------------------------------
-Intercept                                                          0.035    0.004  9.398 0.000  0.028  0.042
+Intercept                                                          0.035    0.004  9.389 0.000  0.028  0.042
 outcome[T.captured]                                               -0.051    0.006 -7.880 0.000 -0.064 -0.038
-player_partner_diff                                                0.043    0.002 20.535 0.000  0.039  0.047
+player_partner_diff                                                0.043    0.002 20.538 0.000  0.039  0.047
 player_partner_diff:outcome[T.captured]                            0.025    0.002 11.348 0.000  0.021  0.030
 Group Var                                                          0.006    0.003                           
 Group x outcome[T.captured] Cov                                   -0.009    0.005                           

@@ -1,26 +1,26 @@
                             OLS Regression Results                            
 ==============================================================================
-Dep. Variable:             reward_inc   R-squared:                       0.134
-Model:                            OLS   Adj. R-squared:                  0.129
-Method:                 Least Squares   F-statistic:                     26.03
-Date:                Sun, 26 Apr 2026   Prob (F-statistic):           1.14e-15
-Time:                        23:06:28   Log-Likelihood:                -1656.8
-No. Observations:                 510   AIC:                             3322.
-Df Residuals:                     506   BIC:                             3338.
+Dep. Variable:             reward_inc   R-squared:                       0.141
+Model:                            OLS   Adj. R-squared:                  0.136
+Method:                 Least Squares   F-statistic:                     27.61
+Date:                Thu, 07 May 2026   Prob (F-statistic):           1.51e-16
+Time:                        21:16:52   Log-Likelihood:                -1657.6
+No. Observations:                 510   AIC:                             3323.
+Df Residuals:                     506   BIC:                             3340.
 Df Model:                           3                                         
 Covariance Type:            nonrobust                                         
 ===================================================================================================================
                                                       coef    std err          t      P>|t|      [0.025      0.975]
 -------------------------------------------------------------------------------------------------------------------
-Intercept                                           1.2421      0.292      4.249      0.000       0.668       1.816
-self_partner_risk_diff                             -0.3582      0.156     -2.293      0.022      -0.665      -0.051
-step_inc_towards_partner                            0.9935      0.229      4.340      0.000       0.544       1.443
-self_partner_risk_diff:step_inc_towards_partner    -0.4982      0.090     -5.566      0.000      -0.674      -0.322
+Intercept                                           1.2502      0.294      4.247      0.000       0.672       1.829
+self_partner_risk_diff                             -0.3650      0.161     -2.272      0.024      -0.681      -0.049
+step_inc_towards_partner                            1.0435      0.231      4.513      0.000       0.589       1.498
+self_partner_risk_diff:step_inc_towards_partner    -0.5082      0.091     -5.557      0.000      -0.688      -0.329
 ==============================================================================
-Omnibus:                        7.134   Durbin-Watson:                   1.557
-Prob(Omnibus):                  0.028   Jarque-Bera (JB):               10.529
-Skew:                          -0.034   Prob(JB):                      0.00517
-Kurtosis:                       3.701   Cond. No.                         4.09
+Omnibus:                        7.073   Durbin-Watson:                   1.549
+Prob(Omnibus):                  0.029   Jarque-Bera (JB):               10.372
+Skew:                          -0.039   Prob(JB):                      0.00560
+Kurtosis:                       3.694   Cond. No.                         4.14
 ==============================================================================
 
 Notes:
