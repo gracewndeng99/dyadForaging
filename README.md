@@ -14,7 +14,7 @@ The core research questions include:
 - When outcomes are negative, who gets blamed?
 - How do responsibility and risk asymmetries influence group coordination?
 
-Three experimental batches are analyzed in parallel and referenced throughout the code by short tags: `conf` (confederate / main study), `expl` (exploratory replication), and `rep2` (second replication).
+Three experimental batches are analyzed in parallel and referenced throughout the code by short tags: `expl` (exploratory), `conf` (confirmatory / replication), and `rep2` (second replication).
 
 
 *** Repository Structure ***
